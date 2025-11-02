@@ -1,0 +1,35 @@
+# Clickbait Headline Templates
+# Use placeholders: <number>, <adjective>, <noun>, <verb>, <celebrity>, <percentage>, <profession>
+# Lines starting with # are comments and will be ignored
+# Blank lines are ignored
+
+<number> <adjective> Ways to Improve Your <noun>
+You Won't Believe How <adjective> This <noun> Really Is!
+This <adjective> <noun> Will Change Your Life Forever
+<profession> Share Their Secret to a <adjective> Life
+<number> Times <celebrity> Inspired Us With a Simple <noun>
+The Amazing Results When I Changed My <noun>
+The <adjective> Way to Make Your <noun> Better
+<number> Reasons Why Your <noun> Is More <adjective> Than You Think
+<percentage>% of Happy People Do This With Their <noun> Every Day
+Make Your <noun> More <adjective> and Feel Amazing!
+<celebrity>'s Secret to Living a <adjective> Life Revealed!
+<profession> Just Shared a <adjective> Discovery About <noun>!
+This <adjective> Approach Changed My Life in Just <number> Days
+The <adjective> Truth About <noun> That Will Inspire You
+<number> Beautiful Reasons to Appreciate Your <noun>
+How <celebrity> Stays So <adjective> Every Single Day
+<number> People Changed Their <noun> and the Results Are <adjective>
+<celebrity> Says This Simple <noun> Can Transform Your Day
+The Magic That Happens When Your <noun> Becomes More <adjective>
+This Simple Daily Habit Made <celebrity> More <adjective>
+<number> <adjective> Ways to Celebrate Your <noun> Today
+The Inspiring Story of <celebrity> and Their <adjective> Journey
+<profession> Share <number> Beautiful Tips About <noun>
+The <adjective> Secret That <percentage>% of Happy People Know
+<celebrity> Credits Their <adjective> Attitude for Success
+Transform Your Life in <number> Days With This <adjective> Approach
+The <adjective> Morning Routine That Changed <celebrity>'s Life
+<number> People Tried This <adjective> Method and Feel Wonderful
+This <adjective> <noun> Will Make You Feel More <adjective>
+The Uplifting Story Behind <celebrity>'s <adjective> Success
