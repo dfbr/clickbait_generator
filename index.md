@@ -3,8 +3,6 @@ layout: default
 title: Home
 ---
 
-# Latest Stories
-
 <div class="post-grid">
   {% for post in site.posts %}
     <article class="post-card">
