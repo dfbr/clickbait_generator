@@ -1,7 +1,7 @@
 title: Clickbait Stories
 email: dave@dfbr.co.uk
 description: >-
-  Daily AI-generated uplifting clickbait stories
+  Daily uplifting clickbait stories
 baseurl: "/clickbait_generator"
 url: "https://dfbr.github.io"
 theme: minima

@@ -9,6 +9,7 @@ import random
 import json
 import os
 import re
+import requests
 from datetime import datetime
 from typing import List
 
@@ -136,6 +137,54 @@ class ClickbaitGenerator:
         return headlines
 
 
+def generate_image(api_key: str, headline: str, post_slug: str) -> tuple:
+    """Generate an image using DALL-E and save it locally. Returns tuple of (full_image_path, preview_image_path)."""
+    try:
+        from openai import OpenAI
+    except ImportError:
+        raise ImportError("The openai package is required. Install it with 'pip install openai'.")
+    
+    from PIL import Image
+    from io import BytesIO
+    
+    client = OpenAI(api_key=api_key)
+    
+    # Create a prompt for DALL-E
+    image_prompt = f"A bright, colorful, uplifting editorial illustration for a news article titled: {headline}. Style: modern digital art, vibrant, positive, suitable for a news website."
+    
+    # Generate image with DALL-E
+    response = client.images.generate(
+        model="dall-e-3",
+        prompt=image_prompt,
+        size="1024x1024",
+        quality="standard",
+        n=1,
+    )
+    
+    image_url = response.data[0].url
+    
+    # Download the image
+    image_response = requests.get(image_url)
+    image_response.raise_for_status()
+    
+    # Save to assets/images/
+    images_dir = 'assets/images'
+    os.makedirs(images_dir, exist_ok=True)
+    image_filename = f"{images_dir}/{post_slug}.png"
+    preview_filename = f"{images_dir}/{post_slug}-preview.png"
+    
+    # Save full image
+    with open(image_filename, 'wb') as f:
+        f.write(image_response.content)
+    
+    # Create preview (300x300)
+    img = Image.open(BytesIO(image_response.content))
+    img.thumbnail((300, 300), Image.Resampling.LANCZOS)
+    img.save(preview_filename, 'PNG')
+    
+    return image_filename, preview_filename
+
+
 def call_openai_api(api_key: str, model: str, prompt: str, headlines: list) -> dict:
     """Send the prompt and headlines to OpenAI and return the response as dict. Supports openai>=1.0.0."""
     try:
@@ -211,7 +260,7 @@ Examples:
     parser.add_argument('-t', '--templates', default='templates.txt', help='File containing headline templates (default: templates.txt)')
     parser.add_argument('--count', type=int, default=1, help='Number of headlines to generate (default: 1)')
     parser.add_argument('--openai_key', required=True, help='OpenAI API key')
-    parser.add_argument('--model', default='gpt-4', help='OpenAI model to use (default: gpt-4)')
+    parser.add_argument('--model', default='gpt-4.1-nano', help='OpenAI model to use (default: gpt-4.1-nano)')
     args = parser.parse_args()
 
     try:
@@ -242,6 +291,13 @@ Examples:
         post_slug = slugify(post_title)
         post_date = datetime.now().strftime('%Y-%m-%d')
         post_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S +0000')
+        
+        # Generate image with DALL-E
+        print("Generating image with DALL-E...")
+        image_path = generate_image(args.openai_key, post_title, post_slug)
+        image_url = f"/assets/images/{post_slug}.png"
+        print(f"Image saved to {image_path}")
+        
         post_dir = '_posts'
         os.makedirs(post_dir, exist_ok=True)
         post_filename = f"{post_dir}/{post_date}-{post_slug}.md"
@@ -252,7 +308,10 @@ layout: post
 title: "{post_title}"
 date: {post_datetime}
 categories: articles
+image: {image_url}
 ---
+
+![{post_title}]({{{{ '{image_url}' | relative_url }}}})
 
 """
         
