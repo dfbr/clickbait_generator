@@ -9,8 +9,4 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
-permalink: /:categories/:year/:month/:day/:title.html
-collections:
-  posts:
-    output: true
-    permalink: /articles/:year/:month/:day/:title.html
+permalink: /articles/:year/:month/:day/:title.html
