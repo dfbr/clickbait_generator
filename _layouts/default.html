@@ -25,7 +25,13 @@
     .logo {
       height: 60px;
       vertical-align: middle;
-      margin-right: 0.5rem;
+    }
+    .logo-link {
+      display: inline-block;
+      text-decoration: none;
+    }
+    .logo-link:hover .logo {
+      opacity: 0.85;
     }
     nav {
       margin-top: 0.5rem;
@@ -67,12 +73,9 @@
 </head>
 <body>
   <header>
-    <h1>
-      <a href="{{ '/' | relative_url }}" style="color:#fff;text-decoration:none;">
-        <img src="{{ '/assets/clickbait_generator.png' | relative_url }}" alt="{{ site.title }} Logo" class="logo">
-        {{ site.title }}
-      </a>
-    </h1>
+    <a href="{{ '/' | relative_url }}" class="logo-link">
+      <img src="{{ '/assets/clickbait_generator.png' | relative_url }}" alt="{{ site.title }}" class="logo">
+    </a>
     <nav>
       <a href="{{ '/' | relative_url }}">Home</a>
       <a href="{{ '/about.html' | relative_url }}">About</a>
