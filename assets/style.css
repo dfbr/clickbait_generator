@@ -1,0 +1,20 @@
+/* Extra styles for newsy, modern look */
+.post-meta {
+  color: #888;
+  font-size: 0.98em;
+  margin-bottom: 1.2em;
+}
+.post-content img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 1.2em 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+article.post h1 {
+  font-size: 2.1em;
+  margin-bottom: 0.2em;
+  color: #1a2233;
+}
+@media (max-width: 600px) {
+  article.post h1 { font-size: 1.3em; }
+}

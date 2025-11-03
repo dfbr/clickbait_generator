@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title | escape }} | {{ site.title | escape }}</title>
+  <link rel="stylesheet" href="/assets/style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+      margin: 0;
+      background: #f7f7f7;
+      color: #222;
+    }
+    header {
+      background: #1a2233;
+      color: #fff;
+      padding: 1rem 0.5rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    nav {
+      margin-top: 0.5rem;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #ffd700;
+    }
+    main {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      padding: 2rem 1.2rem;
+    }
+    footer {
+      text-align: center;
+      color: #888;
+      font-size: 0.95em;
+      margin: 2rem 0 1rem 0;
+    }
+    @media (max-width: 800px) {
+      main { margin: 1rem 0.5rem; padding: 1.2rem 0.5rem; }
+    }
+    @media (max-width: 500px) {
+      main { padding: 0.7rem 0.2rem; }
+      header { font-size: 1.1em; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><a href="/" style="color:#fff;text-decoration:none;">{{ site.title }}</a></h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </header>
+  <main>
+    {{ content }}
+  </main>
+  <footer>
+    &copy; {{ site.time | date: '%Y' }} {{ site.title }} &mdash; Powered by Jekyll & AI
+  </footer>
+</body>
+</html>
