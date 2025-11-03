@@ -10,3 +10,20 @@ plugins:
   - jekyll-seo-tag
 
 permalink: /articles/:year/:month/:day/:title.html
+
+exclude:
+  - clickbait_generator.py
+  - README.md
+  - nouns.txt
+  - adjectives.txt
+  - verbs.txt
+  - celebrities.txt
+  - professions.txt
+  - templates.txt
+  - story_prompt.txt
+  - secrets
+  - venv/
+  - .gitignore
+  - .github/
+  - "*.pyc"
+  - __pycache__/
