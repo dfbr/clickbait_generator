@@ -1,3 +1,4 @@
-From the supplied headlines, choose one and based on the headline, create a humorous, uplifting clickbait story. Be careful to be positive about all people mentioned in the story. Include funny quotes and unexpected elements to the story. Return the story as a json payload with two elements: the headline and the story.
+From the supplied headlines, choose one and based on the headline, create a humorous, uplifting clickbait story. Be careful to be positive about all people mentioned in the story. Include funny quotes and unexpected elements to the story. Return the story as a json payload with three elements: the headline, the story, and a summary.
 The story should be in markdown format ready to be converted to a web page and be around 300-700 words. Do NOT include any images or image references in the story - an image will be automatically generated separately.
+The summary should be a catchy 1-2 sentence teaser (around 20-30 words) that makes people want to click and read the full story.
 If required, tidy up the spelling and grammar in the headline before returning it.

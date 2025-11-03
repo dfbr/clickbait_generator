@@ -294,9 +294,14 @@ Examples:
         
         # Generate image with DALL-E
         print("Generating image with DALL-E...")
-        image_path = generate_image(args.openai_key, post_title, post_slug)
+        image_path, preview_path = generate_image(args.openai_key, post_title, post_slug)
         image_url = f"/assets/images/{post_slug}.png"
+        preview_url = f"/assets/images/{post_slug}-preview.png"
         print(f"Image saved to {image_path}")
+        print(f"Preview saved to {preview_path}")
+        
+        # Get summary
+        summary = story_response.get('summary', '')
         
         post_dir = '_posts'
         os.makedirs(post_dir, exist_ok=True)
@@ -309,6 +314,8 @@ title: "{post_title}"
 date: {post_datetime}
 categories: articles
 image: {image_url}
+preview_image: {preview_url}
+summary: "{summary}"
 ---
 
 ![{post_title}]({{{{ '{image_url}' | relative_url }}}})

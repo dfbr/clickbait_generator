@@ -5,11 +5,21 @@ title: Home
 
 # Latest Stories
 
-<ul class="post-list">
+<div class="post-grid">
   {% for post in site.posts %}
-    <li>
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      <span class="post-date">({{ post.date | date: "%Y-%m-%d" }})</span>
-    </li>
+    <article class="post-card">
+      <a href="{{ post.url | relative_url }}" class="post-card-link">
+        {% if post.preview_image %}
+          <img src="{{ post.preview_image | relative_url }}" alt="{{ post.title }}" class="post-card-image">
+        {% endif %}
+        <div class="post-card-content">
+          <h2>{{ post.title }}</h2>
+          {% if post.summary %}
+            <p class="post-card-summary">{{ post.summary }}</p>
+          {% endif %}
+          <span class="post-card-date">{{ post.date | date: "%B %d, %Y" }}</span>
+        </div>
+      </a>
+    </article>
   {% endfor %}
-</ul>
+</div>
