@@ -13,7 +13,16 @@
 article.post h1 {
   font-size: 2.1em;
   margin-bottom: 0.2em;
-  color: #1a2233;
+  color: #c8102e;
+}
+article.post a {
+  color: #c8102e;
+  text-decoration: none;
+  border-bottom: 1px solid #c8102e;
+}
+article.post a:hover {
+  color: #a00d26;
+  border-bottom-color: #a00d26;
 }
 @media (max-width: 600px) {
   article.post h1 { font-size: 1.3em; }
