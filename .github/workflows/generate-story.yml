@@ -5,6 +5,9 @@ on:
     - cron: '0 3 * * *'  # Every day at 3 AM GMT
   workflow_dispatch:  # Allow manual triggering
 
+permissions:
+  contents: write
+
 jobs:
   generate-story:
     runs-on: ubuntu-latest
