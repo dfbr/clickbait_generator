@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title | escape }} | {{ site.title | escape }}</title>
-  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
   <style>
     body {
       font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
@@ -57,10 +57,10 @@
 </head>
 <body>
   <header>
-    <h1><a href="/" style="color:#fff;text-decoration:none;">{{ site.title }}</a></h1>
+    <h1><a href="{{ '/' | relative_url }}" style="color:#fff;text-decoration:none;">{{ site.title }}</a></h1>
     <nav>
-      <a href="/">Home</a>
-      <a href="/about.html">About</a>
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/about.html' | relative_url }}">About</a>
     </nav>
   </header>
   <main>

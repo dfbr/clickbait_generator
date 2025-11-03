@@ -1,9 +1,9 @@
 title: Clickbait Stories
-email: your-email@example.com
+email: dave@dfbr.co.uk
 description: >-
   Daily AI-generated uplifting clickbait stories
-baseurl: ""
-url: ""
+baseurl: "/clickbait_generator"
+url: "https://dfbr.github.io"
 theme: minima
 plugins:
   - jekyll-feed
