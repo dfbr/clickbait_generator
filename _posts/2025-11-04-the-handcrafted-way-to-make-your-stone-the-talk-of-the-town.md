@@ -12,7 +12,7 @@ summary: "Ever thought about giving your ordinary stone a personality upgrade? O
 
 There is a new movement sweeping the nation and it's not what you might expect. Brace yourselves, because it's about to get rocky. In an unbelievable twist, the humble, often overlooked stone is now capturing the imagination of millions, thanks to a handcrafted revolution! So, buckle up and let's dive into this pebble powered phenomenon.
 
-Our story starts off with [Barney Flintstone](https://en.wikipedia.org/wiki/Barney_Rubble), a humble stone enthusiast, not the cartoon character, mind you, but a real-life lovable rogue who turned his passion for stones into an art form. 'Why should diamonds have all the fun?' Barney jokingly quipped during our interview.
+Our story starts off with [Barney Rubble](https://en.wikipedia.org/wiki/Barney_Rubble), a humble stone enthusiast, not the cartoon character, mind you, but a real-life lovable rogue who turned his passion for stones into an art form. 'Why should diamonds have all the fun?' Barney jokingly quipped during our interview.
 
 Barney's journey began, quite fittingly, under a stone. During a hiking trip, Barney's attention was drawn to a plain, ordinary stone - round, grey, and not particularly special. But to him, it was a canvas waiting for some artistic magic. 'I looked at it and thought - that stone needs some personality!' Barney recounted. Equipped with a chisel, a paintbrush, and a sense of humor, Barney set about transforming the stone into something extraordinary.
 
