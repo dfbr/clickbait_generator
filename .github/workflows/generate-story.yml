@@ -30,7 +30,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          python clickbait_generator.py --count 5 --openai_key $OPENAI_API_KEY --model gpt-4
+          python clickbait_generator.py --count 1 --openai_key $OPENAI_API_KEY --model gpt-4
           
       - name: Configure git
         run: |
