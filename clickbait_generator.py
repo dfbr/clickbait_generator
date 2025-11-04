@@ -278,52 +278,7 @@ Examples:
     args = parser.parse_args()
 
     try:
-        # Define author bios and IDs to link to anchors on the About page
-        AUTHORS = [
-            {
-                "name": "Bubbles McSprinkles",
-                "id": "bubbles-mcsprinkles",
-                "bio": (
-                    "Chief Correspondent & Former Circus Unicyclist. "
-                    "Spent fifteen years dazzling crowds juggling flaming pineapples while reciting Shakespeare. "
-                    "World-record bubble-wrap popper; advocate for garden gnome rights."
-                ),
-            },
-            {
-                "name": "Duckie Quackers",
-                "id": "duckie-quackers",
-                "bio": (
-                    "Senior Reporter & Professional Duck Feeder. "
-                    "Aquatic choreography pioneer behind 'Swan Lake (But With Actual Ducks)'. "
-                    "Breadcrumb trajectory researcher and rubber duck enthusiast."
-                ),
-            },
-            {
-                "name": "Sir Reginald Fluffington III",
-                "id": "sir-reginald-fluffington-iii",
-                "bio": (
-                    "Investigative Journalist & Retired Pillow Fort Architect. "
-                    "Designer of the triple-decker pillow fort with chocolate fountain. "
-                    "Leads global inquiry into the mysterious disappearance of socks."
-                ),
-            },
-            {
-                "name": "Carlos \"The Cloud\" Ramirez",
-                "id": "carlos-the-cloud-ramirez",
-                "bio": (
-                    "Weather Correspondent & Professional Cloud Watcher. "
-                    "Cataloged 10,000+ cloud shapes and verifies rainbow plausibility on-site."
-                ),
-            },
-            {
-                "name": "Dr. Priya Whiskerworth",
-                "id": "dr-priya-whiskerworth",
-                "bio": (
-                    "Science & Technology Editor & Professional Cat Translator. "
-                    "Fluent in seventeen purr dialects; reports on speculative science (mostly snacks)."
-                ),
-            },
-        ]
+        # Author metadata is now stored in _data/authors.json for canonical source of truth
         generator = ClickbaitGenerator(
             nouns_file=args.nouns,
             adjectives_file=args.adjectives,
@@ -343,24 +298,23 @@ Examples:
         with open('story_prompt.txt', 'r', encoding='utf-8') as f:
             story_prompt = f.read().strip()
         
-        # Load authors from data file (preferred) or fallback to embedded AUTHORS
+        # Load authors from canonical data file. If it fails, raise a clear error.
         authors_file = os.path.join('_data', 'authors.json')
         if os.path.exists(authors_file):
             try:
                 with open(authors_file, 'r', encoding='utf-8') as af:
                     authors = json.load(af)
-            except Exception:
-                authors = AUTHORS if 'AUTHORS' in globals() else []
+            except Exception as e:
+                raise RuntimeError(f"Failed to load authors from {authors_file}: {e}")
         else:
-            authors = AUTHORS if 'AUTHORS' in globals() else []
+            raise RuntimeError('No authors available: _data/authors.json not found. Please create it.')
 
-        if not authors:
-            raise RuntimeError('No authors available (check _data/authors.json)')
-
-        # Pick a random author and build their public link (use the same baseurl as site)
+        # Pick a random author and build their public link (let Jekyll resolve baseurl/relative path)
         author = random.choice(authors)
         # author entries in _data/authors.json use 'id' and 'name' keys
-        author_link = f"/about.html#{author['id']}"
+        # Use a relative path (no leading slash) and rely on Jekyll's `relative_url` filter
+        # when rendering links so `site.baseurl` is applied correctly.
+        author_link = f"about.html#{author['id']}"
 
         # Call OpenAI API with author bio for tone (the script will insert canonical byline)
         story_response = call_openai_api(
