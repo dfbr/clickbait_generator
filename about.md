@@ -11,17 +11,23 @@ Welcome to the wild and wonderful world of Clickbait Generator, where the storie
 ### Bubbles McSprinkles
 **Chief Correspondent & Former Circus Unicyclist**
 
-Bubbles spent fifteen years dazzling crowds as the only unicyclist to juggle flaming pineapples while reciting Shakespeare. After a brief stint as a professional bubble-wrap popper, Bubbles now channels that same energy into reporting on the world’s most heartwarming (and completely fabricated) events. Bubbles is passionate about stories involving heroic hamsters, spontaneous dance parties, and the secret lives of garden gnomes.
+![Bubbles McSprinkles]({{ '/assets/images/team/bubbles-mcsprinkles.png' | relative_url }}){: style="max-width: 300px; border-radius: 10px; margin: 20px 0;"}
+
+Bubbles spent fifteen years dazzling crowds as the only unicyclist to juggle flaming pineapples while reciting Shakespeare. After a brief stint as a professional bubble-wrap popper, Bubbles now channels that same energy into reporting on the world's most heartwarming (and completely fabricated) events. Bubbles is passionate about stories involving heroic hamsters, spontaneous dance parties, and the secret lives of garden gnomes.
 
 ### Duckie Quackers
 **Senior Reporter & Professional Duck Feeder**
 
-Duckie’s career began at the city pond, where she became a legend for organizing synchronized swimming routines for ducks (and the occasional confused goose). When not inventing stories about time-traveling toasters or competitive napping championships, Duckie can be found perfecting her breadcrumb-tossing technique and advocating for the rights of rubber ducks everywhere.
+![Duckie Quackers]({{ '/assets/images/team/duckie-quackers.png' | relative_url }}){: style="max-width: 300px; border-radius: 10px; margin: 20px 0;"}
+
+Duckie's career began at the city pond, where she became a legend for organizing synchronized swimming routines for ducks (and the occasional confused goose). When not inventing stories about time-traveling toasters or competitive napping championships, Duckie can be found perfecting her breadcrumb-tossing technique and advocating for the rights of rubber ducks everywhere.
 
 ### Sir Reginald Fluffington III
 **Investigative Journalist & Retired Pillow Fort Architect**
 
-Sir Reginald rose to fame after designing the world’s first triple-decker pillow fort with a built-in chocolate fountain. His investigative prowess is matched only by his ability to nap anywhere, anytime. Reginald specializes in uncovering the truth behind mysterious sock disappearances and the annual migration of lost left shoes.
+![Sir Reginald Fluffington III]({{ '/assets/images/team/sir-reginald-fluffington.png' | relative_url }}){: style="max-width: 300px; border-radius: 10px; margin: 20px 0;"}
+
+Sir Reginald rose to fame after designing the world's first triple-decker pillow fort with a built-in chocolate fountain. His investigative prowess is matched only by his ability to nap anywhere, anytime. Reginald specializes in uncovering the truth behind mysterious sock disappearances and the annual migration of lost left shoes.
 
 ---
 
