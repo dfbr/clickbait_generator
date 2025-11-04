@@ -3,3 +3,9 @@ Return the story as a json payload with three elements: the headline, the story,
 The story should be in markdown format ready to be converted to a web page and be around 300-700 words. Do NOT include any images or image references in the story - an image will be automatically generated separately. You should however include inline links to relevant external sites (such as wikipedia entries for people, imdb entries for TV/films etc)
 The summary should be a catchy 1-2 sentence teaser (around 20-30 words) that makes people want to click and read the full story.
 If required, tidy up the spelling and grammar in the headline before returning it.
+
+Byline requirement:
+- You will be provided with `author_name`, `author_bio`, and `author_link` (URL fragment to the author's biography page).
+- The `story` string MUST begin with a single line byline in exact markdown form:
+	By [AUTHOR_NAME](AUTHOR_LINK)
+- Replace the placeholders with the provided values, then add a blank line and continue with the story.

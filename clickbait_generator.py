@@ -185,7 +185,10 @@ def generate_image(api_key: str, headline: str, post_slug: str) -> tuple:
     return image_filename, preview_filename
 
 
-def call_openai_api(api_key: str, model: str, prompt: str, headlines: list) -> dict:
+def call_openai_api(api_key: str, model: str, prompt: str, headlines: list,
+                    author_name: str | None = None,
+                    author_bio: str | None = None,
+                    author_link: str | None = None) -> dict:
     """Send the prompt and headlines to OpenAI and return the response as dict. Supports openai>=1.0.0."""
     try:
         from openai import OpenAI
@@ -193,6 +196,17 @@ def call_openai_api(api_key: str, model: str, prompt: str, headlines: list) -> d
         raise ImportError("The openai package is required. Install it with 'pip install openai'.")
     client = OpenAI(api_key=api_key)
     user_content = prompt + "\n\nHeadlines: " + json.dumps(headlines)
+    # Inject author context so the model can add a byline linking to About page
+    if author_name and author_link:
+        user_content += (
+            "\n\nAuthor Context (for byline):\n"
+            f"author_name: {author_name}\n"
+            f"author_bio: {author_bio or ''}\n"
+            f"author_link: {author_link}\n"
+            "Instruction: The story string MUST begin with a single markdown byline line in the exact form\n"
+            "By [AUTHOR_NAME](AUTHOR_LINK)\n"
+            "Replace AUTHOR_NAME and AUTHOR_LINK with the provided values. Add a blank line after the byline, then the story."
+        )
     response = client.chat.completions.create(
         model=model,
         messages=[
@@ -264,6 +278,52 @@ Examples:
     args = parser.parse_args()
 
     try:
+        # Define author bios and IDs to link to anchors on the About page
+        AUTHORS = [
+            {
+                "name": "Bubbles McSprinkles",
+                "id": "bubbles-mcsprinkles",
+                "bio": (
+                    "Chief Correspondent & Former Circus Unicyclist. "
+                    "Spent fifteen years dazzling crowds juggling flaming pineapples while reciting Shakespeare. "
+                    "World-record bubble-wrap popper; advocate for garden gnome rights."
+                ),
+            },
+            {
+                "name": "Duckie Quackers",
+                "id": "duckie-quackers",
+                "bio": (
+                    "Senior Reporter & Professional Duck Feeder. "
+                    "Aquatic choreography pioneer behind 'Swan Lake (But With Actual Ducks)'. "
+                    "Breadcrumb trajectory researcher and rubber duck enthusiast."
+                ),
+            },
+            {
+                "name": "Sir Reginald Fluffington III",
+                "id": "sir-reginald-fluffington-iii",
+                "bio": (
+                    "Investigative Journalist & Retired Pillow Fort Architect. "
+                    "Designer of the triple-decker pillow fort with chocolate fountain. "
+                    "Leads global inquiry into the mysterious disappearance of socks."
+                ),
+            },
+            {
+                "name": "Carlos \"The Cloud\" Ramirez",
+                "id": "carlos-the-cloud-ramirez",
+                "bio": (
+                    "Weather Correspondent & Professional Cloud Watcher. "
+                    "Cataloged 10,000+ cloud shapes and verifies rainbow plausibility on-site."
+                ),
+            },
+            {
+                "name": "Dr. Priya Whiskerworth",
+                "id": "dr-priya-whiskerworth",
+                "bio": (
+                    "Science & Technology Editor & Professional Cat Translator. "
+                    "Fluent in seventeen purr dialects; reports on speculative science (mostly snacks)."
+                ),
+            },
+        ]
         generator = ClickbaitGenerator(
             nouns_file=args.nouns,
             adjectives_file=args.adjectives,
@@ -283,8 +343,20 @@ Examples:
         with open('story_prompt.txt', 'r', encoding='utf-8') as f:
             story_prompt = f.read().strip()
         
-        # Call OpenAI API
-        story_response = call_openai_api(args.openai_key, args.model, story_prompt, selected_headlines)
+        # Pick a random author and build their public link (include baseurl for GitHub Pages)
+        author = random.choice(AUTHORS)
+        author_link = f"/clickbait_generator/about.html#{author['id']}"
+
+        # Call OpenAI API with author context so the story includes a byline
+        story_response = call_openai_api(
+            args.openai_key,
+            args.model,
+            story_prompt,
+            selected_headlines,
+            author_name=author["name"],
+            author_bio=author["bio"],
+            author_link=author_link,
+        )
         
         # Prepare Jekyll post
         post_title = story_response['headline']
@@ -316,6 +388,8 @@ categories: articles
 image: {image_url}
 preview_image: {preview_url}
 summary: "{summary}"
+author: "{author['name']}"
+author_url: "{author_link}"
 ---
 
 ![{post_title}]({{{{ '{image_url}' | relative_url }}}})
@@ -326,7 +400,7 @@ summary: "{summary}"
         with open(post_filename, 'w', encoding='utf-8') as f:
             f.write(front_matter)
             f.write(story_response['story'].lstrip())
-        
+
         print(f"Story saved to {post_filename}")
         
     except Exception as e:
