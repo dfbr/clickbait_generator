@@ -360,7 +360,7 @@ Examples:
         # Pick a random author and build their public link (use the same baseurl as site)
         author = random.choice(authors)
         # author entries in _data/authors.json use 'id' and 'name' keys
-        author_link = f"/clickbait_generator/about.html#{author['id']}"
+        author_link = f"/about.html#{author['id']}"
 
         # Call OpenAI API with author bio for tone (the script will insert canonical byline)
         story_response = call_openai_api(
