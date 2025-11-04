@@ -1,0 +1,37 @@
+---
+layout: default
+---
+
+{% assign author = site.data.authors | where: "id", page.author_id | first %}
+
+<article class="author-page">
+  <header>
+    <h1>Stories by {{ author.name }}</h1>
+    <p><a href="{{ '/about.html#' | append: author.id | relative_url }}">Back to bio</a></p>
+  </header>
+
+  {% if author.image %}
+    <img src="{{ author.image | relative_url }}" alt="{{ author.name }}" style="float:right; max-width:150px; margin-left:1rem; border-radius:8px;">
+  {% endif %}
+
+  <section class="author-bio">
+    <p>{{ author.bio }}</p>
+  </section>
+
+  <section class="author-posts">
+    <h2>All stories by {{ author.name }}</h2>
+    {% assign posts_by_author = site.posts | where: "author", author.name %}
+    {% if posts_by_author and posts_by_author.size > 0 %}
+      <ul>
+        {% for post in posts_by_author %}
+          <li>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            <span class="post-date">— {{ post.date | date: "%Y-%m-%d" }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p><em>No stories found for this author yet.</em></p>
+    {% endif %}
+  </section>
+</article>
