@@ -6,6 +6,8 @@ categories: articles
 image: /assets/images/the-uplifting-adventures-of-lucas-sinclair-a-tale-of-hilarity-and-unforeseen-triumphs.png
 preview_image: /assets/images/the-uplifting-adventures-of-lucas-sinclair-a-tale-of-hilarity-and-unforeseen-triumphs-preview.png
 summary: "Join us for a hilarious ride as we recount Lucas Sinclair's inspiring quest: to bake the world's largest croissant while salsa dancing! This charming tale promises laughter, joy, and a colossal pastry!"
+author: "Dr. Priya Whiskerworth"
+author_url: "about.html#dr-priya-whiskerworth"
 ---
 
 ![The Uplifting Adventures of Lucas Sinclair: A Tale of Hilarity and Unforeseen Triumphs]({{ '/assets/images/the-uplifting-adventures-of-lucas-sinclair-a-tale-of-hilarity-and-unforeseen-triumphs.png' | relative_url }})

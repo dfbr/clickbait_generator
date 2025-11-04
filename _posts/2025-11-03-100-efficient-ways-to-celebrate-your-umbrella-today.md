@@ -6,7 +6,8 @@ categories: articles
 image: /assets/images/100-efficient-ways-to-celebrate-your-umbrella-today.png
 preview_image: /assets/images/100-efficient-ways-to-celebrate-your-umbrella-today-preview.png
 summary: "Meet Jimmy 'Brolly' Jamison, a man on a unique mission to celebrate his umbrella in 100 efficient ways. From disco parties to poetic odes, he's transforming the way we look at our rainy day companions!"
----
+author: "Bubbles McSprinkles"
+author_url: "about.html#bubbles-mcsprinkles"
 
 ![100 Efficient Ways to Celebrate Your Umbrella Today!]({{ '/assets/images/100-efficient-ways-to-celebrate-your-umbrella-today.png' | relative_url }})
 

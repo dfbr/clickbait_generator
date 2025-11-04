@@ -6,6 +6,8 @@ categories: articles
 image: /assets/images/the-playful-morning-routine-that-completely-transformed-pitbulls-life.png
 preview_image: /assets/images/the-playful-morning-routine-that-completely-transformed-pitbulls-life-preview.png
 summary: "Discover the unexpectedly hilarious and uplifting morning routine that transformed international superstar Pitbull's life. This tale of play, positivity, and a pup named Paws is sure to tickle your funny bone and inspire you!"
+author: "Carlos \"The Cloud\" Ramirez"
+author_url: "about.html#carlos-the-cloud-ramirez"
 ---
 
 ![The Playful Morning Routine That Completely Transformed Pitbull's Life]({{ '/assets/images/the-playful-morning-routine-that-completely-transformed-pitbulls-life.png' | relative_url }})

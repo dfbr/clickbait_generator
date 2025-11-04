@@ -5,6 +5,8 @@ date: 2025-11-03 19:28:04 +0000
 categories: articles
 image: /assets/images/stephen-king-credits-his-endless-attitude-for-success.png
 preview_image: /assets/images/stephen-king-credits-his-endless-attitude-for-success.png
+author: "Sir Reginald Fluffington III"
+author_url: "about.html#sir-reginald-fluffington-iii"
 ---
 
 ![Stephen King Credits His Endless Attitude for Success]({{ '/assets/images/stephen-king-credits-his-endless-attitude-for-success.png' | relative_url }})

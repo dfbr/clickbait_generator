@@ -5,6 +5,9 @@ date: 2025-11-03 18:58:18 +0000
 categories: articles
 ---
 
+author: "Dr. Priya Whiskerworth"
+author_url: "about.html#dr-priya-whiskerworth"
+
 # The Profound Truth About Rope That Will Surely Inspire You!
 
 ![Rope](https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80)

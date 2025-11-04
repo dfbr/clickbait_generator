@@ -6,8 +6,8 @@ categories: articles
 image: /assets/images/doctors-reveal-25-glittering-tips-about-necklaces-that-will-bedazzle-your-life.png
 preview_image: /assets/images/doctors-reveal-25-glittering-tips-about-necklaces-that-will-bedazzle-your-life-preview.png
 summary: "A committee of doctors have shared a bling-tastic list of '25 Glittering Tips About Necklaces'. Discover how a diamond necklace can improve your posture, and find out the unexpected health benefits of wearing pearls!"
-author: "Duckie Quackers"
-author_url: "/clickbait_generator/about.html#duckie-quackers"
+author: "Bubbles McSprinkles"
+author_url: "about.html#bubbles-mcsprinkles"
 ---
 
 ![Doctors Reveal 25 Glittering Tips About Necklaces That Will Bedazzle Your Life]({{ '/assets/images/doctors-reveal-25-glittering-tips-about-necklaces-that-will-bedazzle-your-life.png' | relative_url }})

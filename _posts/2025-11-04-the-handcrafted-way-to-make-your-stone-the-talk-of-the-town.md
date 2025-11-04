@@ -6,6 +6,8 @@ categories: articles
 image: /assets/images/the-handcrafted-way-to-make-your-stone-the-talk-of-the-town.png
 preview_image: /assets/images/the-handcrafted-way-to-make-your-stone-the-talk-of-the-town-preview.png
 summary: "Ever thought about giving your ordinary stone a personality upgrade? One man did, and it sparked a nationwide trend that's making everyone smile! Discover the handcrafted way to make your stone the talk of the town!"
+author: "Carlos \"The Cloud\" Ramirez"
+author_url: "about.html#carlos-the-cloud-ramirez"
 ---
 
 ![The Handcrafted Way to Make Your Stone the Talk of the Town!]({{ '/assets/images/the-handcrafted-way-to-make-your-stone-the-talk-of-the-town.png' | relative_url }})

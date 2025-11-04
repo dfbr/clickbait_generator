@@ -6,6 +6,8 @@ categories: articles
 image: /assets/images/this-simple-daily-habit-transformed-lizzo-into-a-beacon-of-encouragement.png
 preview_image: /assets/images/this-simple-daily-habit-transformed-lizzo-into-a-beacon-of-encouragement-preview.png
 summary: "Discover the daily habit that transformed Lizzo into a fearless encouragement guru. Hint: It involves singing, a shower, and a whole lot of self-love!"
+author: "Bubbles McSprinkles"
+author_url: "about.html#bubbles-mcsprinkles"
 ---
 
 ![This Simple Daily Habit Transformed Lizzo into a Beacon of Encouragement]({{ '/assets/images/this-simple-daily-habit-transformed-lizzo-into-a-beacon-of-encouragement.png' | relative_url }})

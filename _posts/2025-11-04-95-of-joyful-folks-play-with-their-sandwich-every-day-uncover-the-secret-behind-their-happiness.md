@@ -7,7 +7,7 @@ image: /assets/images/95-of-joyful-folks-play-with-their-sandwich-every-day-unco
 preview_image: /assets/images/95-of-joyful-folks-play-with-their-sandwich-every-day-uncover-the-secret-behind-their-happiness-preview.png
 summary: "Did you know that 95% of the happiest people on Earth derive joy from their daily sandwich? They don't just eat it, they play with it! Discover this tantalizing twist on the most ordinary thing in your lunchbox."
 author: "Duckie Quackers"
-author_url: "/about.html#duckie-quackers"
+author_url: "about.html#duckie-quackers"
 ---
 
 ![95% of Joyful Folks Play With Their Sandwich Every Day: Uncover the Secret Behind Their Happiness!]({{ '/assets/images/95-of-joyful-folks-play-with-their-sandwich-every-day-uncover-the-secret-behind-their-happiness.png' | relative_url }})
