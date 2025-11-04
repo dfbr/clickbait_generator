@@ -3,7 +3,11 @@ layout: default
 ---
 <article class="post">
   <h1>{{ page.title }}</h1>
-  <p class="post-meta">Published {{ page.date | date: "%B %d, %Y" }}</p>
+  <p class="post-meta">Published {{ page.date | date: "%B %d, %Y" }}
+  {% if page.author and page.author_url %}
+    — By <a href="{{ page.author_url | relative_url }}">{{ page.author }}</a>
+  {% endif %}
+  </p>
   <div class="post-content">
     {{ content }}
   </div>

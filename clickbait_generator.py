@@ -343,18 +343,33 @@ Examples:
         with open('story_prompt.txt', 'r', encoding='utf-8') as f:
             story_prompt = f.read().strip()
         
-        # Pick a random author and build their public link (include baseurl for GitHub Pages)
-        author = random.choice(AUTHORS)
+        # Load authors from data file (preferred) or fallback to embedded AUTHORS
+        authors_file = os.path.join('_data', 'authors.json')
+        if os.path.exists(authors_file):
+            try:
+                with open(authors_file, 'r', encoding='utf-8') as af:
+                    authors = json.load(af)
+            except Exception:
+                authors = AUTHORS if 'AUTHORS' in globals() else []
+        else:
+            authors = AUTHORS if 'AUTHORS' in globals() else []
+
+        if not authors:
+            raise RuntimeError('No authors available (check _data/authors.json)')
+
+        # Pick a random author and build their public link (use the same baseurl as site)
+        author = random.choice(authors)
+        # author entries in _data/authors.json use 'id' and 'name' keys
         author_link = f"/clickbait_generator/about.html#{author['id']}"
 
-        # Call OpenAI API with author context so the story includes a byline
+        # Call OpenAI API with author bio for tone (the script will insert canonical byline)
         story_response = call_openai_api(
             args.openai_key,
             args.model,
             story_prompt,
             selected_headlines,
-            author_name=author["name"],
-            author_bio=author["bio"],
+            author_name=author.get("name"),
+            author_bio=author.get("bio"),
             author_link=author_link,
         )
         
@@ -396,10 +411,26 @@ author_url: "{author_link}"
 
 """
         
-        # Write the post file
+        # Prepare story content: ensure the model didn't already include a byline
+        story_text = story_response.get('story', '').lstrip()
+        # Remove any leading byline the model may have inserted (safe-guard)
+        import re as _re
+        lines = story_text.splitlines()
+        if lines and _re.match(r"^By \[.+\]\(.+\)\s*$", lines[0].strip()):
+            # drop the first line and any following blank line
+            lines = lines[1:]
+            if lines and lines[0].strip() == '':
+                lines = lines[1:]
+        story_text = '\n'.join(lines)
+
+        # Construct canonical byline using Jekyll relative_url so baseurl is respected
+        byline = f"By [{author.get('name')}]({{{{ '{author_link}' | relative_url }}}})\n\n"
+
+        # Write the post file (front matter, byline, then story)
         with open(post_filename, 'w', encoding='utf-8') as f:
             f.write(front_matter)
-            f.write(story_response['story'].lstrip())
+            f.write(byline)
+            f.write(story_text)
 
         print(f"Story saved to {post_filename}")
         

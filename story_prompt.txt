@@ -4,8 +4,6 @@ The story should be in markdown format ready to be converted to a web page and b
 The summary should be a catchy 1-2 sentence teaser (around 20-30 words) that makes people want to click and read the full story.
 If required, tidy up the spelling and grammar in the headline before returning it.
 
-Byline requirement:
-- You will be provided with `author_name`, `author_bio`, and `author_link` (URL fragment to the author's biography page).
-- The `story` string MUST begin with a single line byline in exact markdown form:
-	By [AUTHOR_NAME](AUTHOR_LINK)
-- Replace the placeholders with the provided values, then add a blank line and continue with the story.
+Author context:
+- You will be provided with `author_name` and `author_bio`. Use this information to adopt the author's voice and tone for the story.
+- Do NOT include an author byline in the story text — the system will insert a canonical byline that links to the author biography on the site. Return only the `headline`, `story`, and `summary` fields as JSON as before.

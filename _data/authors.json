@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Bubbles McSprinkles",
+    "id": "bubbles-mcsprinkles",
+    "bio": "Chief Correspondent & Former Circus Unicyclist. Spent fifteen years dazzling crowds juggling flaming pineapples while reciting Shakespeare. World-record bubble-wrap popper; advocate for garden gnome rights.",
+    "image": "/assets/images/team/bubbles-mcsprinkles.png"
+  },
+  {
+    "name": "Duckie Quackers",
+    "id": "duckie-quackers",
+    "bio": "Senior Reporter & Professional Duck Feeder. Aquatic choreography pioneer behind 'Swan Lake (But With Actual Ducks)'. Breadcrumb trajectory researcher and rubber duck enthusiast.",
+    "image": "/assets/images/team/duckie-quackers.png"
+  },
+  {
+    "name": "Sir Reginald Fluffington III",
+    "id": "sir-reginald-fluffington-iii",
+    "bio": "Investigative Journalist & Retired Pillow Fort Architect. Designer of the triple-decker pillow fort with chocolate fountain. Leads global inquiry into the mysterious disappearance of socks.",
+    "image": "/assets/images/team/sir-reginald-fluffington.png"
+  },
+  {
+    "name": "Carlos \"The Cloud\" Ramirez",
+    "id": "carlos-the-cloud-ramirez",
+    "bio": "Weather Correspondent & Professional Cloud Watcher. Cataloged 10,000+ cloud shapes and verifies rainbow plausibility on-site.",
+    "image": "/assets/images/team/carlos-ramirez.png"
+  },
+  {
+    "name": "Dr. Priya Whiskerworth",
+    "id": "dr-priya-whiskerworth",
+    "bio": "Science & Technology Editor & Professional Cat Translator. Fluent in seventeen purr dialects; reports on speculative science (mostly snacks).",
+    "image": "/assets/images/team/priya-whiskerworth.png"
+  }
+]
