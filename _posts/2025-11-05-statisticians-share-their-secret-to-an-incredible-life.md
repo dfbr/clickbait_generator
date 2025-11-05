@@ -1,20 +1,20 @@
 ---
-        layout: post
-        title: "Statisticians Share Their Secret to an Incredible Life"
-        date: 2025-11-05 14:52:28 +0000
-        categories: ["articles", "Culture"]
-        category: "Culture"
-        image: /assets/images/statisticians-share-their-secret-to-an-incredible-life.png
-        preview_image: /assets/images/statisticians-share-their-secret-to-an-incredible-life-preview.png
-        summary: "Discover the surprising secret to an incredible life: humor, unpredictability, and a charming cat prove that happiness is rooted in the joy of chaos and data-driven fun!"
-        author: "Dr. Priya Whiskerworth"
-        author_id: "dr-priya-whiskerworth"
-        author_url: "about.html#dr-priya-whiskerworth"
-        ---
+layout: post
+title: "Statisticians Share Their Secret to an Incredible Life"
+date: 2025-11-05 14:52:28 +0000
+categories: ["articles", "Culture"]
+category: "Culture"
+image: /assets/images/statisticians-share-their-secret-to-an-incredible-life.png
+preview_image: /assets/images/statisticians-share-their-secret-to-an-incredible-life-preview.png
+summary: "Discover the surprising secret to an incredible life: humor, unpredictability, and a charming cat prove that happiness is rooted in the joy of chaos and data-driven fun!"
+author: "Dr. Priya Whiskerworth"
+author_id: "dr-priya-whiskerworth"
+author_url: "about.html#dr-priya-whiskerworth"
+---
 
-        ![Statisticians Share Their Secret to an Incredible Life]({{ '/assets/images/statisticians-share-their-secret-to-an-incredible-life.png' | relative_url }})
+![Statisticians Share Their Secret to an Incredible Life]({{ '/assets/images/statisticians-share-their-secret-to-an-incredible-life.png' | relative_url }})
 
-        By [Dr. Priya Whiskerworth]({{ 'about.html#dr-priya-whiskerworth' | relative_url }})
+By [Dr. Priya Whiskerworth]({{ 'about.html#dr-priya-whiskerworth' | relative_url }})
 
 **In a surprising twist that’s taking the scientific community by storm, a group of legendary statisticians has revealed the surprisingly simple secrets to living an incredible life — and it’s not just about numbers!** 
 

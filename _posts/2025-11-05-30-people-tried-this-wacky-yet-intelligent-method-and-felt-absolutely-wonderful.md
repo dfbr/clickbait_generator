@@ -1,20 +1,20 @@
 ---
-        layout: post
-        title: "30 People Tried This Wacky Yet Intelligent Method and Felt Absolutely Wonderful!"
-        date: 2025-11-05 15:02:07 +0000
-        categories: ["articles", "Science", "Culture"]
-        category: "Science"
-        image: /assets/images/30-people-tried-this-wacky-yet-intelligent-method-and-felt-absolutely-wonderful.png
-        preview_image: /assets/images/30-people-tried-this-wacky-yet-intelligent-method-and-felt-absolutely-wonderful-preview.png
-        summary: "Discover the hilarious and heartwarming success of the 'Smile and Sip' method—30 people worldwide experienced happiness boosts with just a smile, a sip, and a dash of humor!"
-        author: "Samina Fishington"
-        author_id: "samina-fishington"
-        author_url: "about.html#samina-fishington"
-        ---
+layout: post
+title: "30 People Tried This Wacky Yet Intelligent Method and Felt Absolutely Wonderful!"
+date: 2025-11-05 15:02:07 +0000
+categories: ["articles", "Science", "Culture"]
+category: "Science"
+image: /assets/images/30-people-tried-this-wacky-yet-intelligent-method-and-felt-absolutely-wonderful.png
+preview_image: /assets/images/30-people-tried-this-wacky-yet-intelligent-method-and-felt-absolutely-wonderful-preview.png
+summary: "Discover the hilarious and heartwarming success of the 'Smile and Sip' method—30 people worldwide experienced happiness boosts with just a smile, a sip, and a dash of humor!"
+author: "Samina Fishington"
+author_id: "samina-fishington"
+author_url: "about.html#samina-fishington"
+---
 
-        ![30 People Tried This Wacky Yet Intelligent Method and Felt Absolutely Wonderful!]({{ '/assets/images/30-people-tried-this-wacky-yet-intelligent-method-and-felt-absolutely-wonderful.png' | relative_url }})
+![30 People Tried This Wacky Yet Intelligent Method and Felt Absolutely Wonderful!]({{ '/assets/images/30-people-tried-this-wacky-yet-intelligent-method-and-felt-absolutely-wonderful.png' | relative_url }})
 
-        By [Samina Fishington]({{ 'about.html#samina-fishington' | relative_url }})
+By [Samina Fishington]({{ 'about.html#samina-fishington' | relative_url }})
 
 ## The Unbelievable Power of the 'Smile and Sip' Method: A Global Happiness Hack
 
