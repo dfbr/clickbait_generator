@@ -12,7 +12,7 @@ author_id: "sir-reginald-fluffington-iii"
 author_url: "about.html#sir-reginald-fluffington-iii"
 ---
 
-![59 People Tried This Original Method and Feel Absolutely Wonderful]({{ '/assets/images/placeholder.png' | relative_url }})
+![59 People Tried This Original Method and Feel Absolutely Wonderful]({{ '/assets/images/59-people-tried-this-original-method.png' | relative_url }})
 
 By [Sir Reginald Fluffington III]({{ 'about.html#sir-reginald-fluffington-iii' | relative_url }})
 
@@ -30,4 +30,4 @@ So, next time life feels a little overwhelming, remember the 59 brave souls who 
 
 Who knew that in the world of serious routines, a spontaneous pony trot might just be the secret to feeling fabulous?
 
-For more on Betty Bumblesworth’s whimsical wellness methods and the viral 'Joy-Jump,' check out her [website](about.html#betty-bumblesworth).
+For more on Betty Bumblesworth’s whimsical wellness methods and the viral 'Joy-Jump,' try searching for her on DuckDuckGo: [Betty Bumblesworth on DuckDuckGo](https://duckduckgo.com/?q=betty+bumblesworth).
