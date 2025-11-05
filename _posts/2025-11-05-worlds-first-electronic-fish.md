@@ -3,10 +3,12 @@ layout: post
 title: "World’s First Electronic Salmon Sparks Waves of Excitement"
 date: 2025-11-05 03:28:28 +0000
 categories: articles
+category: "Science"
 image: /assets/images/worlds-first-electronic-salmon.png
 preview_image: /assets/images/worlds-first-electronic-salmon-preview.png
 summary: "Discover the groundbreaking innovation of electronic salmon in New Zealand, where fish power the future!"
 author: "Samina Fishington"
+author_id: "samina-fishington"
 author_url: "about.html#samina-fishington"
 ---
 

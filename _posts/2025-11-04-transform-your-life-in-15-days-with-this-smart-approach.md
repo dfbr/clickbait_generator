@@ -3,10 +3,12 @@ layout: post
 title: "Transform Your Life in 15 Days With This Smart Approach"
 date: 2025-11-04 03:28:28 +0000
 categories: articles
+category: "News"
 image: /assets/images/transform-your-life-in-15-days-with-this-smart-approach.png
 preview_image: /assets/images/transform-your-life-in-15-days-with-this-smart-approach-preview.png
 summary: "Discover how Benny, a regular guy with a peculiar love for rubber ducks, transformed his life in just 15 days using a smart, and rather duck-filled, approach!"
 author: "Carlos \"The Cloud\" Ramirez"
+author_id: "carlos-the-cloud-ramirez"
 author_url: "about.html#carlos-the-cloud-ramirez"
 ---
 

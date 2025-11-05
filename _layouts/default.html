@@ -78,6 +78,11 @@
     </a>
     <nav>
       <a href="{{ '/about.html' | relative_url }}">Meet the team</a>
+      {% if site.data.categories %}
+        {% for cat in site.data.categories %}
+          <a href="{{ '/categories/' | append: cat.id | append: '/' | relative_url }}">{{ cat.name }}</a>
+        {% endfor %}
+      {% endif %}
     </nav>
   </header>
   <main>

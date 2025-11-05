@@ -3,10 +3,12 @@ layout: post
 title: "This Simple Daily Habit Transformed Lizzo into a Beacon of Encouragement"
 date: 2025-11-04 07:01:21 +0000
 categories: articles
+category: "News"
 image: /assets/images/this-simple-daily-habit-transformed-lizzo-into-a-beacon-of-encouragement.png
 preview_image: /assets/images/this-simple-daily-habit-transformed-lizzo-into-a-beacon-of-encouragement-preview.png
 summary: "Discover the daily habit that transformed Lizzo into a fearless encouragement guru. Hint: It involves singing, a shower, and a whole lot of self-love!"
 author: "Bubbles McSprinkles"
+author_id: "bubbles-mcsprinkles"
 author_url: "about.html#bubbles-mcsprinkles"
 ---
 

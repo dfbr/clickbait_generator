@@ -316,6 +316,29 @@ Examples:
         # when rendering links so `site.baseurl` is applied correctly.
         author_link = f"about.html#{author['id']}"
 
+        # Load categories from _data/categories.json if present, otherwise use defaults
+        categories_file = os.path.join('_data', 'categories.json')
+        if os.path.exists(categories_file):
+            try:
+                with open(categories_file, 'r', encoding='utf-8') as cf:
+                    categories = json.load(cf)
+            except Exception as e:
+                print(f"Warning: failed to load categories: {e}")
+                categories = []
+        else:
+            # sensible defaults for a newspaper-like site
+            categories = [
+                {"id": "news", "name": "News"},
+                {"id": "science", "name": "Science"},
+                {"id": "culture", "name": "Culture"},
+                {"id": "opinion", "name": "Opinion"}
+            ]
+        # Pick a random category for this story
+        category = random.choice(categories)
+        # Occasionally mark a story as featured (20% chance)
+        is_featured = random.random() < 0.2
+        featured_line = "featured: true\n" if is_featured else ""
+
         # Call OpenAI API with author bio for tone (the script will insert canonical byline)
         story_response = call_openai_api(
             args.openai_key,
@@ -350,20 +373,22 @@ Examples:
         
         # Create Jekyll front matter
         front_matter = f"""---
-layout: post
-title: "{post_title}"
-date: {post_datetime}
-categories: articles
-image: {image_url}
-preview_image: {preview_url}
-summary: "{summary}"
-author: "{author['name']}"
-author_url: "{author_link}"
----
+        layout: post
+        title: "{post_title}"
+        date: {post_datetime}
+        categories: articles
+        category: "{category.get('name', 'News')}"
+        {featured_line}image: {image_url}
+        preview_image: {preview_url}
+        summary: "{summary}"
+        author: "{author['name']}"
+        author_id: "{author['id']}"
+        author_url: "{author_link}"
+        ---
 
-![{post_title}]({{{{ '{image_url}' | relative_url }}}})
+        ![{post_title}]({{{{ '{image_url}' | relative_url }}}})
 
-"""
+        """
         
         # Prepare story content: ensure the model didn't already include a byline
         story_text = story_response.get('story', '').lstrip()

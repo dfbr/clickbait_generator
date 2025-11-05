@@ -3,10 +3,12 @@ layout: post
 title: "Helen Mirren Claims This Simple Backpack Can Transform Your Day!"
 date: 2025-11-03 06:36:10 +0000
 categories: articles
+category: "News"
 image: /assets/images/helen-mirren-claims-this-simple-backpack-can-transform-your-day.png
 preview_image: /assets/images/helen-mirren-claims-this-simple-backpack-can-transform-your-day-preview.png
 summary: "Dame Helen Mirren reveals her surprising secret to a successful day: a simple backpack! Find out why she can't live without it and how she once smuggled a cheese wheel into a movie premiere!"
 author: "Duckie Quackers"
+author_id: "duckie-quackers"
 author_url: "about.html#duckie-quackers"
 ---
 

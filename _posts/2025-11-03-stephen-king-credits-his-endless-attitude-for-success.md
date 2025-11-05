@@ -3,9 +3,11 @@ layout: post
 title: "Stephen King Credits His Endless Attitude for Success"
 date: 2025-11-03 19:28:04 +0000
 categories: articles
+category: "News"
 image: /assets/images/stephen-king-credits-his-endless-attitude-for-success.png
 preview_image: /assets/images/stephen-king-credits-his-endless-attitude-for-success.png
 author: "Sir Reginald Fluffington III"
+author_id: "sir-reginald-fluffington-iii"
 author_url: "about.html#sir-reginald-fluffington-iii"
 ---
 

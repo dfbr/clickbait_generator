@@ -3,10 +3,14 @@ layout: post
 title: "The Profound Truth About Rope That Will Inspire You"
 date: 2025-11-03 18:58:18 +0000
 categories: articles
----
-
+category: "News"
+image: /assets/images/rope-profound-truth.png
+preview_image: /assets/images/rope-profound-truth-preview.png
+summary: "A rope-inspired life lesson that has the internet knitting memes and self-help gurus taking notes."
 author: "Dr. Priya Whiskerworth"
+author_id: "dr-priya-whiskerworth"
 author_url: "about.html#dr-priya-whiskerworth"
+---
 
 # The Profound Truth About Rope That Will Surely Inspire You!
 

@@ -3,10 +3,12 @@ layout: post
 title: "The Handcrafted Way to Make Your Stone the Talk of the Town!"
 date: 2025-11-04 07:04:32 +0000
 categories: articles
+category: "News"
 image: /assets/images/the-handcrafted-way-to-make-your-stone-the-talk-of-the-town.png
 preview_image: /assets/images/the-handcrafted-way-to-make-your-stone-the-talk-of-the-town-preview.png
 summary: "Ever thought about giving your ordinary stone a personality upgrade? One man did, and it sparked a nationwide trend that's making everyone smile! Discover the handcrafted way to make your stone the talk of the town!"
 author: "Carlos \"The Cloud\" Ramirez"
+author_id: "carlos-the-cloud-ramirez"
 author_url: "about.html#carlos-the-cloud-ramirez"
 ---
 

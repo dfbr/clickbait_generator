@@ -5,7 +5,23 @@ layout: default
   <h1>{{ page.title }}</h1>
   <p class="post-meta">Published {% include ordinal_date.html date=page.date %}
   {% if page.author and page.author_url %}
-    — By <a href="{{ page.author_url | relative_url }}">{{ page.author }}</a>
+    {% if page.author_id %}
+      {% assign authorObj = site.data.authors | where: "id", page.author_id | first %}
+    {% else %}
+      {% assign authorObj = site.data.authors | where: "name", page.author | first %}
+    {% endif %}
+    {% if authorObj %}
+      {% if authorObj.thumbnail %}
+        <span class="author-byline">— By <a href="{{ page.author_url | relative_url }}"><img src="{{ authorObj.thumbnail | relative_url }}" alt="{{ page.author }}" class="author-thumb" /> {{ page.author }}</a></span>
+      {% elsif authorObj.image %}
+        {% assign thumb = authorObj.image | replace: '.png', '-thumb.png' | replace: '.jpg', '-thumb.jpg' | replace: '.jpeg', '-thumb.jpeg' %}
+        <span class="author-byline">— By <a href="{{ page.author_url | relative_url }}"><img src="{{ thumb | relative_url }}" alt="{{ page.author }}" class="author-thumb" /> {{ page.author }}</a></span>
+      {% else %}
+        — By <a href="{{ page.author_url | relative_url }}">{{ page.author }}</a>
+      {% endif %}
+    {% else %}
+      — By <a href="{{ page.author_url | relative_url }}">{{ page.author }}</a>
+    {% endif %}
   {% endif %}
   </p>
   <div class="post-content">

@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+{% assign category = site.data.categories | where: "id", page.category_id | first %}
+
+<article class="category-page">
+  <header>
+    <h1>{{ category.name }}</h1>
+    <p><a href="{{ '/' | relative_url }}">Back to home</a></p>
+  </header>
+
+  <section class="category-posts">
+    {% assign posts_in_cat = site.posts | where: "category", category.name %}
+    {% if posts_in_cat and posts_in_cat.size > 0 %}
+      <ul>
+        {% for post in posts_in_cat %}
+          <li>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            <span class="post-date">— {% include ordinal_date.html date=post.date %}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p><em>No stories in this category yet.</em></p>
+    {% endif %}
+  </section>
+</article>

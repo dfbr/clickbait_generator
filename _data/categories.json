@@ -1,0 +1,6 @@
+[
+  { "id": "news", "name": "News" },
+  { "id": "science", "name": "Science" },
+  { "id": "culture", "name": "Culture" },
+  { "id": "opinion", "name": "Opinion" }
+]
