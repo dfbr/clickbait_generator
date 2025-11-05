@@ -53,6 +53,18 @@ Welcome to the wild and wonderful world of Clickbait Generator, where the storie
   <p><a href="{{ '/authors/dr-priya-whiskerworth/' | relative_url }}">See all stories by Dr. Priya Whiskerworth</a></p>
 </div>
 
+<div style="overflow: auto; margin-bottom: 2rem;">
+  <h3 id="samina-fishington">Samina Fishington</h3>
+  <p><strong>Marine Scientist & Underwater Culture Correspondent</strong></p>
+  <img src="{{ '/assets/images/team/samina-fishington.png' | relative_url }}" alt="Samina Fishington" style="float: left; max-width: 250px; margin: 0 15px 15px 0; border-radius: 10px;">
+  <p>Samina Fishington is not your average salmon researcher. While other scientists spend their careers counting scales or measuring migration patterns, Samina prefers to focus on what she calls <strong>“the weird bits of fish life no one talks about”</strong> — including salmon mood swings, underwater fashion trends, and electro-hydro power potential.</p>
+  <p>A proud graduate of the University of Unlikely Marine Studies, Samina first made waves by publishing her groundbreaking paper <em>“Do Salmon Appreciate Jazz?”</em>, which, to her surprise, earned her both ridicule and a modest grant. This grant funded her travels around Norway’s fjords in a kayak she affectionately dubbed <em>The Fish Whisperer 2000</em>, where she perfected the art of talking to salmon (although whether they listened remains up for debate).</p>
+  <p>Her unique mix of scientific curiosity and stand-up comedy led her naturally to journalism. As staff reporter for <strong>Fishy Times Online</strong>, Samina specialises in strange-but-true aquatic tales, like competitive synchronized swimming between seals and the recent surge in goldfish self‑confidence.</p>
+  <p>When she’s not writing or researching, Samina enjoys knitting tiny waterproof scarves for cold-water fish, inventing card games based on algae types, and hosting her popular podcast “Current Affairs” (tagline: <em>Making Waves in News and Water</em>).</p>
+  <p>Colleagues describe her as <em>“equal parts marine biologist and cartoon character”</em>. Samina claims she is simply “a woman who knows too much about fish to be taken seriously by people who don’t.” She has won niche awards such as the <strong>Golden Gills Medal</strong> for Creative Salmon Research and the <strong>Splasher Prize</strong> for Underwater Humour in Journalism. Her next project explores whether trout can be trained to tweet — digitally or audibly.</p>
+  <p><a href="{{ '/authors/samina-fishington/' | relative_url }}">See all stories by Samina Fishington</a></p>
+</div>
+
 ---
 
 Together, this team of delightfully unconventional reporters is committed to making your day a little brighter, one clickbait story at a time!
