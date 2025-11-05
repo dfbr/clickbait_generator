@@ -15,7 +15,7 @@ title: Home
           {% if post.summary %}
             <p class="post-card-summary">{{ post.summary }}</p>
           {% endif %}
-          <span class="post-card-date">{{ post.date | date: "%B %d, %Y" }}</span>
+          <span class="post-card-date">{% include ordinal_date.html date=post.date %}</span>
         </div>
       </a>
     </article>

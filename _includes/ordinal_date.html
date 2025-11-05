@@ -1,0 +1,25 @@
+{% comment %}
+Include: ordinal_date.html
+Usage: {% include ordinal_date.html date=page.date %}
+Outputs: e.g. 5<sup>th</sup> November 2025
+{% endcomment %}
+
+{% assign d = include.date | date: "%-d" %}
+{% assign dnum = d | plus: 0 %}
+{% assign last_two = dnum | modulo: 100 %}
+{% if last_two >= 11 and last_two <= 13 %}
+  {% assign suffix = "th" %}
+{% else %}
+  {% assign last = dnum | modulo: 10 %}
+  {% if last == 1 %}
+    {% assign suffix = "st" %}
+  {% elsif last == 2 %}
+    {% assign suffix = "nd" %}
+  {% elsif last == 3 %}
+    {% assign suffix = "rd" %}
+  {% else %}
+    {% assign suffix = "th" %}
+  {% endif %}
+{% endif %}
+
+<span class="formatted-date">{{ dnum }}<sup>{{ suffix }}</sup> {{ include.date | date: "%B %Y" }}</span>

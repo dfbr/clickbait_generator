@@ -20,13 +20,13 @@ layout: default
 
   <section class="author-posts">
     <h2>All stories by {{ author.name }}</h2>
-    {% assign posts_by_author = site.posts | where: "author", author.name %}
+  {% assign posts_by_author = site.posts | where: "author", author.name %}
     {% if posts_by_author and posts_by_author.size > 0 %}
       <ul>
         {% for post in posts_by_author %}
           <li>
             <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-            <span class="post-date">— {{ post.date | date: "%Y-%m-%d" }}</span>
+            <span class="post-date">— {% include ordinal_date.html date=post.date %}</span>
           </li>
         {% endfor %}
       </ul>
