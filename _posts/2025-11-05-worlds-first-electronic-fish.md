@@ -6,7 +6,7 @@ categories: articles
 image: /assets/images/worlds-first-electronic-salmon.png
 preview_image: /assets/images/worlds-first-electronic-salmon-preview.png
 summary: "Discover the groundbreaking innovation of electronic salmon in New Zealand, where fish power the future!"
-author: "samina-fishington"
+author: "Samina Fishington"
 author_url: "about.html#samina-fishington"
 ---
 
