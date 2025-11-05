@@ -10,19 +10,49 @@ layout: default
     <p><a href="{{ '/' | relative_url }}">Back to home</a></p>
   </header>
 
-  <section class="category-posts">
-  {% assign posts_in_cat = site.posts | where_exp: "p", "p.categories and p.categories contains category.name" %}
-  {% if posts_in_cat and posts_in_cat.size > 0 %}
-      <ul>
-        {% for post in posts_in_cat %}
-          <li>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-            <span class="post-date">— {% include ordinal_date.html date=post.date %}</span>
-          </li>
-        {% endfor %}
-      </ul>
+  <div class="post-grid">
+    {% assign posts_in_cat = site.posts | where_exp: "p", "p.categories and p.categories contains category.name" %}
+
+    {% assign featured = posts_in_cat | where: "featured", true | first %}
+    {% if featured %}
+      <section class="featured-post">
+        <article class="post-featured">
+          <a href="{{ featured.url | relative_url }}">
+            {% if featured.image %}
+              <img src="{{ featured.image | relative_url }}" alt="{{ featured.title }}" style="width:100%; height:auto; border-radius:8px;">
+            {% endif %}
+            <h1>{{ featured.title }}</h1>
+            {% if featured.summary %}<p>{{ featured.summary }}</p>{% endif %}
+            <p class="post-meta">Published {% include ordinal_date.html date=featured.date %} {% if featured.author %}— By {{ featured.author }}{% endif %}</p>
+          </a>
+        </article>
+      </section>
+    {% endif %}
+
+    {% assign others = posts_in_cat %}
+    {% if featured %}
+      {% assign others = posts_in_cat | where_exp: "p", "p.url != featured.url" %}
+    {% endif %}
+
+    {% if others and others.size > 0 %}
+      {% for post in others %}
+        <article class="post-card">
+          <a href="{{ post.url | relative_url }}" class="post-card-link">
+            {% if post.preview_image %}
+              <img src="{{ post.preview_image | relative_url }}" alt="{{ post.title }}" class="post-card-image">
+            {% endif %}
+            <div class="post-card-content">
+              <h2>{{ post.title }}</h2>
+              {% if post.summary %}
+                <p class="post-card-summary">{{ post.summary }}</p>
+              {% endif %}
+              <span class="post-card-date">{% include ordinal_date.html date=post.date %}</span>
+            </div>
+          </a>
+        </article>
+      {% endfor %}
     {% else %}
       <p><em>No stories in this category yet.</em></p>
     {% endif %}
-  </section>
+  </div>
 </article>

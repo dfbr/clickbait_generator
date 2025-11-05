@@ -326,9 +326,16 @@ Examples:
     parser.add_argument('-p', '--professions', default='professions.txt', help='File containing professions (default: professions.txt)')
     parser.add_argument('-t', '--templates', default='templates.txt', help='File containing headline templates (default: templates.txt)')
     parser.add_argument('--count', type=int, default=1, help='Number of headlines to generate (default: 1)')
-    parser.add_argument('--openai_key', required=True, help='OpenAI API key')
+    parser.add_argument('--openai_key', required=False, help='OpenAI API key (or set OPENAI_API_KEY env var)')
     parser.add_argument('--model', default='gpt-4.1-nano', help='OpenAI model to use (default: gpt-4.1-nano)')
+    parser.add_argument('--no-images', action='store_true', help='Skip DALL·E image generation and use placeholders')
     args = parser.parse_args()
+
+    # Allow using OPENAI_API_KEY from environment when --openai_key is not provided
+    if not getattr(args, 'openai_key', None):
+        args.openai_key = os.environ.get('OPENAI_API_KEY')
+    if not args.openai_key:
+        parser.error('OpenAI API key is required. Provide --openai_key or set OPENAI_API_KEY environment variable.')
 
     try:
         # Author metadata is now stored in _data/authors.json for canonical source of truth
@@ -409,13 +416,20 @@ Examples:
         post_date = datetime.now().strftime('%Y-%m-%d')
         post_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S +0000')
         
-        # Generate image with DALL-E
-        print("Generating image with DALL-E...")
-        image_path, preview_path = generate_image(args.openai_key, post_title, post_slug)
-        image_url = f"/assets/images/{post_slug}.png"
-        preview_url = f"/assets/images/{post_slug}-preview.png"
-        print(f"Image saved to {image_path}")
-        print(f"Preview saved to {preview_path}")
+        # Generate image with DALL-E (or skip if requested)
+        if getattr(args, 'no_images', False):
+            print("Skipping image generation (--no-images); using placeholder paths")
+            image_url = "/assets/images/placeholder.png"
+            preview_url = "/assets/images/placeholder-preview.png"
+            image_path = None
+            preview_path = None
+        else:
+            print("Generating image with DALL-E...")
+            image_path, preview_path = generate_image(args.openai_key, post_title, post_slug)
+            image_url = f"/assets/images/{post_slug}.png"
+            preview_url = f"/assets/images/{post_slug}-preview.png"
+            print(f"Image saved to {image_path}")
+            print(f"Preview saved to {preview_path}")
         
         # Get summary
         summary = story_response.get('summary', '')
