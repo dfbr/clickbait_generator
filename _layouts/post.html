@@ -12,7 +12,7 @@ layout: default
     {% endif %}
     {% if authorObj %}
       {% if authorObj.thumbnail %}
-        <span class="author-byline">— By <a href="{{ page.author_url | relative_url }}"><img src="{{ authorObj.thumbnail | relative_url }}" alt="{{ page.author }}" class="author-thumb" /> {{ page.author }}</a></span>
+        <span class="author-byline">— By <a href="{{ page.author_url | relative_url }}">{{ page.author }}</a></span>
       {% elsif authorObj.image %}
         {% assign thumb = authorObj.image | replace: '.png', '-thumb.png' | replace: '.jpg', '-thumb.jpg' | replace: '.jpeg', '-thumb.jpeg' %}
         <span class="author-byline">— By <a href="{{ page.author_url | relative_url }}"><img src="{{ thumb | relative_url }}" alt="{{ page.author }}" class="author-thumb" /> {{ page.author }}</a></span>
