@@ -12,7 +12,7 @@ author_id: "sir-reginald-fluffington-iii"
 author_url: "about.html#sir-reginald-fluffington-iii"
 ---
 
-![Jim Hopper Claims: This Simple Ribbon Can Transform Your Day!]({{ '/assets/images/jim-hopper-claims-this-simple-ribbon-can-transform-your-day.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 # Jim Hopper Claims: This Simple Ribbon Can Transform Your Day!
 

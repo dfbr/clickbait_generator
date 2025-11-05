@@ -12,7 +12,7 @@ author_id: "carlos-the-cloud-ramirez"
 author_url: "about.html#carlos-the-cloud-ramirez"
 ---
 
-![The Handcrafted Way to Make Your Stone the Talk of the Town!]({{ '/assets/images/the-handcrafted-way-to-make-your-stone-the-talk-of-the-town.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 There is a new movement sweeping the nation and it's not what you might expect. Brace yourselves, because it's about to get rocky. In an unbelievable twist, the humble, often overlooked stone is now capturing the imagination of millions, thanks to a handcrafted revolution! So, buckle up and let's dive into this pebble powered phenomenon.
 

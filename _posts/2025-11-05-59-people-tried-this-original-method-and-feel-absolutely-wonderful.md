@@ -12,7 +12,7 @@ author_id: "sir-reginald-fluffington-iii"
 author_url: "about.html#sir-reginald-fluffington-iii"
 ---
 
-![59 People Tried This Original Method and Feel Absolutely Wonderful]({{ '/assets/images/59-people-tried-this-original-method.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 By [Sir Reginald Fluffington III]({{ 'about.html#sir-reginald-fluffington-iii' | relative_url }})
 

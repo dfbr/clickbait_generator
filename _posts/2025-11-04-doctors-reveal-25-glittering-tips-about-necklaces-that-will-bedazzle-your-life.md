@@ -12,7 +12,7 @@ author_id: "bubbles-mcsprinkles"
 author_url: "about.html#bubbles-mcsprinkles"
 ---
 
-![Doctors Reveal 25 Glittering Tips About Necklaces That Will Bedazzle Your Life]({{ '/assets/images/doctors-reveal-25-glittering-tips-about-necklaces-that-will-bedazzle-your-life.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 By [Duckie Quackers](/clickbait_generator/about.html#duckie-quackers) 
 

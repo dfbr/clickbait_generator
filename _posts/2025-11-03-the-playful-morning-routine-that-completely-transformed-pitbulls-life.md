@@ -12,7 +12,7 @@ author_id: "carlos-the-cloud-ramirez"
 author_url: "about.html#carlos-the-cloud-ramirez"
 ---
 
-![The Playful Morning Routine That Completely Transformed Pitbull's Life]({{ '/assets/images/the-playful-morning-routine-that-completely-transformed-pitbulls-life.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 Never in a million years would you imagine Pitbull - Mr. Worldwide - to be a fan of a morning routine involving a playful game of fetch with his German Shepherd, Paws! 
 

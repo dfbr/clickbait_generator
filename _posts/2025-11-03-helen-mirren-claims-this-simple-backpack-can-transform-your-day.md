@@ -12,7 +12,7 @@ author_id: "duckie-quackers"
 author_url: "about.html#duckie-quackers"
 ---
 
-![Helen Mirren Claims This Simple Backpack Can Transform Your Day!]({{ '/assets/images/helen-mirren-claims-this-simple-backpack-can-transform-your-day.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 # Helen Mirren Claims This Simple Backpack Can Transform Your Day!
 

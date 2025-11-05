@@ -11,7 +11,7 @@ author: "Bubbles McSprinkles"
 author_id: "bubbles-mcsprinkles"
 author_url: "about.html#bubbles-mcsprinkles"
 
-![100 Efficient Ways to Celebrate Your Umbrella Today!]({{ '/assets/images/100-efficient-ways-to-celebrate-your-umbrella-today.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 # 100 Efficient Ways to Celebrate Your Umbrella Today!
 

@@ -12,7 +12,7 @@ author_id: "dr-priya-whiskerworth"
 author_url: "about.html#dr-priya-whiskerworth"
 ---
 
-![Statisticians Share Their Secret to an Incredible Life]({{ '/assets/images/statisticians-share-their-secret-to-an-incredible-life.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 By [Dr. Priya Whiskerworth]({{ 'about.html#dr-priya-whiskerworth' | relative_url }})
 

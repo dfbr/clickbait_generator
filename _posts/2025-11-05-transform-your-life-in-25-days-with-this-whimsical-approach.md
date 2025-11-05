@@ -12,7 +12,7 @@ author_id: "sir-reginald-fluffington-iii"
 author_url: "about.html#sir-reginald-fluffington-iii"
 ---
 
-![Transform Your Life in 25 Days With This Whimsical Approach]({{ '/assets/images/placeholder.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 By [Sir Reginald Fluffington III]({{ 'about.html#sir-reginald-fluffington-iii' | relative_url }})
 

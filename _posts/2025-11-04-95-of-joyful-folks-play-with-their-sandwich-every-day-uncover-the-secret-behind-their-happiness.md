@@ -12,7 +12,7 @@ author_id: "duckie-quackers"
 author_url: "about.html#duckie-quackers"
 ---
 
-![95% of Joyful Folks Play With Their Sandwich Every Day: Uncover the Secret Behind Their Happiness!]({{ '/assets/images/95-of-joyful-folks-play-with-their-sandwich-every-day-uncover-the-secret-behind-their-happiness.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 By [Duckie Quackers]({{ '/clickbait_generator/about.html#duckie-quackers' | relative_url }})
 

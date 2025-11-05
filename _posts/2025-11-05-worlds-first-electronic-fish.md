@@ -12,7 +12,7 @@ author_id: "samina-fishington"
 author_url: "about.html#samina-fishington"
 ---
 
-![World's first electronic salmon]({{ '/assets/images/worlds-first-electronic-salmon.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 # World’s First Electronic Salmon Sparks Waves of Excitement
 
@@ -27,7 +27,7 @@ According to Dr. Ingrid Volt, head of the “Piscine Power” project:
 
 > “We realised the salmon were already doing half the work—swimming against currents we’d made to keep them fit. So why not turn their effort into actual electricity? It’s renewable, it’s sustainable, and it’s… mildly hilarious.”
 
-![Electronic Salmon Tank]({{ '/assets/images/worlds-first-electonic-salmon-scientific-image.png' | relative_url }})  
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})  
 *Image: Atlantic salmon — not yet plugged in.*
 
 ## Feeding the Fish with… Electricity?

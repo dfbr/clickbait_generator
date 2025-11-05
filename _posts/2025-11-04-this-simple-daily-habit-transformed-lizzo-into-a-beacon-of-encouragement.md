@@ -12,7 +12,7 @@ author_id: "bubbles-mcsprinkles"
 author_url: "about.html#bubbles-mcsprinkles"
 ---
 
-![This Simple Daily Habit Transformed Lizzo into a Beacon of Encouragement]({{ '/assets/images/this-simple-daily-habit-transformed-lizzo-into-a-beacon-of-encouragement.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 Prepare to be **blown away by the mojo of our favorite 'Truth Hurts' singer, Lizzo!** Who would have thought the secret to her radiant positivity could be something as simple as a daily habit? Yes, it's not her Grammy awards, her chart-topping music, or even her dazzling outfits. It's something much more straightforward, and it's something we all can incorporate into our daily lives.
 

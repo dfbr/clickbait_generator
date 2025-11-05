@@ -12,7 +12,7 @@ author_id: "carlos-the-cloud-ramirez"
 author_url: "about.html#carlos-the-cloud-ramirez"
 ---
 
-![Transform Your Life in 15 Days With This Smart Approach]({{ '/assets/images/transform-your-life-in-15-days-with-this-smart-approach.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 ### Transform Your Life in 15 Days With This Smart Approach
 

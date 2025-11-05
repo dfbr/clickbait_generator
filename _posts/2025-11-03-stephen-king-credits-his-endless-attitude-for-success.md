@@ -11,7 +11,7 @@ author_id: "sir-reginald-fluffington-iii"
 author_url: "about.html#sir-reginald-fluffington-iii"
 ---
 
-![Stephen King Credits His Endless Attitude for Success]({{ '/assets/images/stephen-king-credits-his-endless-attitude-for-success.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 # Stephen King Credits His Endless Attitude for Success
 

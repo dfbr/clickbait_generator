@@ -481,7 +481,7 @@ Examples:
         author_url: "{author_link}"
         ---
 
-        ![{post_title}]({image_url})
+        ![{{{{ page.image_alt | default: page.title }}}}]({{{{ page.image | relative_url }}}})
 
         """)
         

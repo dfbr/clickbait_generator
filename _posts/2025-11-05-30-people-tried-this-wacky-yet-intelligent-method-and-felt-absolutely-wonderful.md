@@ -12,7 +12,7 @@ author_id: "samina-fishington"
 author_url: "about.html#samina-fishington"
 ---
 
-![30 People Tried This Wacky Yet Intelligent Method and Felt Absolutely Wonderful!]({{ '/assets/images/30-people-tried-this-wacky-yet-intelligent-method-and-felt-absolutely-wonderful.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 By [Samina Fishington]({{ 'about.html#samina-fishington' | relative_url }})
 

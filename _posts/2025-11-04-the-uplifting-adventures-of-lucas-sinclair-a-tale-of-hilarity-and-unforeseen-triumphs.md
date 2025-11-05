@@ -12,7 +12,7 @@ author_id: "dr-priya-whiskerworth"
 author_url: "about.html#dr-priya-whiskerworth"
 ---
 
-![The Uplifting Adventures of Lucas Sinclair: A Tale of Hilarity and Unforeseen Triumphs]({{ '/assets/images/the-uplifting-adventures-of-lucas-sinclair-a-tale-of-hilarity-and-unforeseen-triumphs.png' | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 # The Uplifting Adventures of Lucas Sinclair: A Tale of Hilarity and Unforeseen Triumphs 
 
