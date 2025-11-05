@@ -10,7 +10,7 @@ author: "Samina Fishington"
 author_url: "about.html#samina-fishington"
 ---
 
-![World's first electronic salmon]({{ '/assets/images/worlds-first-electronic-salmon-preview.png' | relative_url }})
+![World's first electronic salmon]({{ '/assets/images/worlds-first-electronic-salmon.png' | relative_url }})
 
 # World’s First Electronic Salmon Sparks Waves of Excitement
 
