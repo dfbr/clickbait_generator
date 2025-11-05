@@ -23,11 +23,11 @@ Deep in the crisp waters around Twizel in New Zealand, a fish farm has just unve
 
 The concept is simple… well, simple-ish. Engineers have installed a network of ultra-sensitive hydroelectric paddles in the pen’s circulating water. Whenever the salmon dart, leap, or just grumpily swish their tails, the water flows through micro-turbines that generate a small surge of electricity. Think of it as a fishy gym membership: the more they exercise, the more juice they produce.
 
-According to Dr. Ingrid Volt, head of the “Piscine Power” project:
+According to Dr. Ingrid Volt, head of the "Piscine Power" project:
 
-> “We realised the salmon were already doing half the work—swimming against currents we’d made to keep them fit. So why not turn their effort into actual electricity? It’s renewable, it’s sustainable, and it’s… mildly hilarious.”
+> "We realised the salmon were already doing half the work—swimming against currents we'd made to keep them fit. So why not turn their effort into actual electricity? It's renewable, it's sustainable, and it's… mildly hilarious."
 
-![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})  
+![Atlantic salmon — not yet plugged in]({{ '/assets/images/worlds-first-electonic-salmon-scientific-image.png' | relative_url }})  
 *Image: Atlantic salmon — not yet plugged in.*
 
 ## Feeding the Fish with… Electricity?
