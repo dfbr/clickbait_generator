@@ -248,6 +248,59 @@ def call_openai_api(api_key: str, model: str, prompt: str, headlines: list,
             raise
 
 
+def suggest_categories(api_key: str, model: str, candidates: list, headline: str, summary: str, max_choices: int = 2) -> list:
+    """Ask OpenAI to suggest up to max_choices categories from the provided candidates list.
+    Returns a list of category names (strings). On failure returns an empty list.
+    """
+    try:
+        from openai import OpenAI
+    except ImportError:
+        print("OpenAI SDK not available; falling back to empty categories list.")
+        return []
+    client = OpenAI(api_key=api_key)
+    # Prepare a compact instruction to return JSON only
+    candidate_names = [c.get('name') if isinstance(c, dict) else str(c) for c in candidates]
+    user_msg = (
+        "You are given a short article headline and summary and a fixed list of possible categories. "
+        "Choose up to %d categories from the list that best describe the article. "
+        "Return ONLY a JSON object with the key \"categories\" containing an array of category names exactly as they appear in the list. "
+        "If none apply, return an empty array. Do not include any extra text.\n\n" % max_choices
+    )
+    user_msg += f"Headline: {headline}\nSummary: {summary}\nCategories: {json.dumps(candidate_names)}"
+
+    try:
+        resp = client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": "You are a helpful categorization assistant."},
+                {"role": "user", "content": user_msg}
+            ],
+            max_tokens=200,
+            temperature=0.0,
+        )
+        content = resp.choices[0].message.content.strip()
+        if content.startswith('```'):
+            # strip code fences
+            lines = content.split('\n')
+            if lines[0].startswith('```'):
+                lines = lines[1:]
+            if lines and lines[-1].startswith('```'):
+                lines = lines[:-1]
+            content = '\n'.join(lines).strip()
+        # parse JSON
+        parsed = json.loads(content, strict=False)
+        cats = parsed.get('categories') if isinstance(parsed, dict) else []
+        if not isinstance(cats, list):
+            return []
+        # Normalize: keep only names that appear in candidate_names
+        chosen = [c for c in cats if c in candidate_names]
+        # limit to max_choices
+        return chosen[:max_choices]
+    except Exception as e:
+        print(f"Category suggestion failed: {e}")
+        return []
+
+
 def slugify(value):
     """Convert a string to a URL-friendly slug."""
     value = value.lower()
@@ -366,18 +419,45 @@ Examples:
         
         # Get summary
         summary = story_response.get('summary', '')
+
+        # Ask OpenAI to suggest categories from our canonical set (if available)
+        suggested = []
+        try:
+            suggested = suggest_categories(args.openai_key, args.model, categories, post_title, summary, max_choices=2)
+        except Exception as e:
+            print(f"Category suggestion error (falling back to random): {e}")
+            suggested = []
+
+        # Build the categories array for front matter. Always include 'articles' as a base collection.
+        # Use suggested categories (names) and ensure uniqueness.
+        chosen_cat_names = []
+        for s in suggested:
+            if s and s not in chosen_cat_names:
+                chosen_cat_names.append(s)
+        # Always include the primary random category as a fallback / default if no suggestions
+        primary_name = category.get('name', 'News')
+        if not chosen_cat_names:
+            chosen_cat_names = [primary_name]
+        # Prepend the collection 'articles'
+        categories_field = ['articles'] + chosen_cat_names
         
         post_dir = '_posts'
         os.makedirs(post_dir, exist_ok=True)
         post_filename = f"{post_dir}/{post_date}-{post_slug}.md"
         
         # Create Jekyll front matter
+        # Format categories as a YAML list (e.g., categories: [articles, Science])
+        cats_escaped = ", ".join([f'"{c}"' for c in categories_field])
+        cats_line = f"[{cats_escaped}]"
+        # Keep a primary `category:` field for compatibility (first non-articles entry)
+        primary_category = chosen_cat_names[0] if chosen_cat_names else primary_name
+
         front_matter = f"""---
         layout: post
         title: "{post_title}"
         date: {post_datetime}
-        categories: articles
-        category: "{category.get('name', 'News')}"
+        categories: {cats_line}
+        category: "{primary_category}"
         {featured_line}image: {image_url}
         preview_image: {preview_url}
         summary: "{summary}"

@@ -11,8 +11,8 @@ layout: default
   </header>
 
   <section class="category-posts">
-    {% assign posts_in_cat = site.posts | where: "category", category.name %}
-    {% if posts_in_cat and posts_in_cat.size > 0 %}
+  {% assign posts_in_cat = site.posts | where_exp: "p", "p.categories and p.categories contains category.name" %}
+  {% if posts_in_cat and posts_in_cat.size > 0 %}
       <ul>
         {% for post in posts_in_cat %}
           <li>
