@@ -6,13 +6,13 @@ categories: articles
 image: /assets/images/worlds-first-electronic-salmon.png
 preview_image: /assets/images/worlds-first-electronic-salmon-preview.png
 summary: "Discover the groundbreaking innovation of electronic salmon in New Zealand, where fish power the future!"
-author: ""
-author_url: "about.html#carlos-the-cloud-ramirez"
+author: "samina-fishington"
+author_url: "about.html#samina-fishington"
 ---
 
-# World’s First Electronic Salmon Sparks Waves of Excitement
+![World's first electronic salmon]({{ '/assets/images/worlds-first-electronic-salmon-preview.png' | relative_url }})
 
-**By: Your Faithful Investigative Reporter**  
+# World’s First Electronic Salmon Sparks Waves of Excitement
 
 Move over, electric eels—there’s a new shocking star in town.  
 Deep in the crisp waters around Twizel in New Zealand, a fish farm has just unveiled the **world’s first electronic salmon**—and no, they don’t run on batteries. These shimmering swimmers live in specially designed waters that not only keep them healthy and happy, but also channel their splashes and swishes into actual *electricity*. Yes, the fish literally help power the facility just by being fish.
