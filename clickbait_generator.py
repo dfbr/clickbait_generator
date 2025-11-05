@@ -12,6 +12,7 @@ import re
 import requests
 from datetime import datetime
 from typing import List
+import textwrap
 
 
 class ClickbaitGenerator:
@@ -466,7 +467,7 @@ Examples:
         # Keep a primary `category:` field for compatibility (first non-articles entry)
         primary_category = chosen_cat_names[0] if chosen_cat_names else primary_name
 
-        front_matter = f"""---
+        front_matter = textwrap.dedent(f"""---
         layout: post
         title: "{post_title}"
         date: {post_datetime}
@@ -480,9 +481,9 @@ Examples:
         author_url: "{author_link}"
         ---
 
-        ![{post_title}]({{{{ '{image_url}' | relative_url }}}})
+        ![{post_title}]({image_url})
 
-        """
+        """)
         
         # Prepare story content: ensure the model didn't already include a byline
         story_text = story_response.get('story', '').lstrip()
