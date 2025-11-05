@@ -11,7 +11,8 @@ layout: default
   </header>
 
   <div class="post-grid">
-    {% assign posts_in_cat = site.posts | where_exp: "p", "p.categories and p.categories contains category.name" %}
+    {% assign cname = category.name %}
+    {% assign posts_in_cat = site.posts | where_exp: "p", "p.categories contains cname" %}
 
     {% assign featured = posts_in_cat | where: "featured", true | first %}
     {% if featured %}
@@ -31,7 +32,8 @@ layout: default
 
     {% assign others = posts_in_cat %}
     {% if featured %}
-      {% assign others = posts_in_cat | where_exp: "p", "p.url != featured.url" %}
+      {% assign featured_url = featured.url %}
+      {% assign others = posts_in_cat | where_exp: "p", "p.url != featured_url" %}
     {% endif %}
 
     {% if others and others.size > 0 %}
