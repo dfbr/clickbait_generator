@@ -4,8 +4,8 @@ title: "Transform Your Life in 25 Days With This Whimsical Approach"
 date: 2025-11-05 15:03:04 +0000
 categories: ["articles", "Culture"]
 category: "Culture"
-image: /assets/images/placeholder.png
-preview_image: /assets/images/placeholder-preview.png
+image: /assets/images/transform-in-25-days.png
+preview_image: /assets/images/transform-in-25-days-preview.png
 summary: "Discover how embracing whimsy and humor can transform your life in just 25 days, inspired by Mildred McSnuffle’s hilarious journey into joyful eccentricity and unexpected friendships!"
 author: "Sir Reginald Fluffington III"
 author_id: "sir-reginald-fluffington-iii"
