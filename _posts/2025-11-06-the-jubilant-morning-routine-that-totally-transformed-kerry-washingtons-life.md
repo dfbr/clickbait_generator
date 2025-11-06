@@ -7,7 +7,7 @@ category: "Culture"
 image: /assets/images/the-jubilant-morning-routine-that-totally-transformed-kerry-washingtons-life.png
 preview_image: /assets/images/the-jubilant-morning-routine-that-totally-transformed-kerry-washingtons-life-preview.png
 summary: "Discover Kerry Washington's delightfully whimsical morning routine. It involves dancing, cloud-watching and hot cocoa! Who knew?"
-author: 'Carlos "The Cloud" Ramirez'
+author: 'Carlos - The Cloud - Ramirez'
 author_id: "carlos-the-cloud-ramirez"
 author_url: "about.html#carlos-the-cloud-ramirez"
 ---
