@@ -488,7 +488,7 @@ Examples:
             f"author_url: \"{author_link}\"",
             "---",
             "",
-            "![{{{{ page.image_alt | default: page.title }}}}]({{{{ page.image | relative_url }}}})",
+            "![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})",
             "",
         ]
         front_matter = "\n".join(fm_lines)

@@ -7,12 +7,12 @@ category: "Culture"
 image: /assets/images/the-jubilant-morning-routine-that-totally-transformed-kerry-washingtons-life.png
 preview_image: /assets/images/the-jubilant-morning-routine-that-totally-transformed-kerry-washingtons-life-preview.png
 summary: "Discover Kerry Washington's delightfully whimsical morning routine. It involves dancing, cloud-watching and hot cocoa! Who knew?"
-author: "Carlos "The Cloud" Ramirez"
+author: 'Carlos "The Cloud" Ramirez'
 author_id: "carlos-the-cloud-ramirez"
 author_url: "about.html#carlos-the-cloud-ramirez"
 ---
 
-![{{{{ page.image_alt | default: page.title }}}}]({{{{ page.image | relative_url }}}})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 By [Carlos "The Cloud" Ramirez]({{ 'about.html#carlos-the-cloud-ramirez' | relative_url }})
 
 You'd think that a Hollywood superstar like [Kerry Washington](https://en.wikipedia.org/wiki/Kerry_Washington) would have a morning routine filled with all sorts of fancy skin creams and secret celebrity rituals. But it turns out, the secret to her success is much simpler, and much more hilarious. Yes, folks, the Scandal star starts her mornings with... a literal song and dance routine!
