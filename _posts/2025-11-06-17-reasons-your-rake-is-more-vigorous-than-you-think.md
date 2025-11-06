@@ -1,18 +1,18 @@
 ---
-        layout: post
-        title: "17 Reasons Your Rake is More Vigorous Than You Think"
-        date: 2025-11-06 03:40:52 +0000
-        categories: ["articles", "Culture", "Opinion"]
-        category: "Culture"
-        image: /assets/images/17-reasons-your-rake-is-more-vigorous-than-you-think.png
-        preview_image: /assets/images/17-reasons-your-rake-is-more-vigorous-than-you-think-preview.png
-        summary: "Think your garden rake is just a tool? Think again! Dive into this hilarious and uplifting story on the 17 reasons why your rake is more vigorous than you ever imagined."
-        author: "Sir Reginald Fluffington III"
-        author_id: "sir-reginald-fluffington-iii"
-        author_url: "about.html#sir-reginald-fluffington-iii"
-        ---
+layout: post
+title: "17 Reasons Your Rake is More Vigorous Than You Think"
+date: 2025-11-06 03:40:52 +0000
+categories: ["articles", "Culture", "Opinion"]
+category: "Culture"
+image: /assets/images/17-reasons-your-rake-is-more-vigorous-than-you-think.png
+preview_image: /assets/images/17-reasons-your-rake-is-more-vigorous-than-you-think-preview.png
+summary: "Think your garden rake is just a tool? Think again! Dive into this hilarious and uplifting story on the 17 reasons why your rake is more vigorous than you ever imagined."
+author: "Sir Reginald Fluffington III"
+author_id: "sir-reginald-fluffington-iii"
+author_url: "about.html#sir-reginald-fluffington-iii"
+---
 
-        ![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 By [Sir Reginald Fluffington III]({{ 'about.html#sir-reginald-fluffington-iii' | relative_url }})
 

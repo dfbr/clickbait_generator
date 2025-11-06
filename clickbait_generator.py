@@ -467,23 +467,31 @@ Examples:
         # Keep a primary `category:` field for compatibility (first non-articles entry)
         primary_category = chosen_cat_names[0] if chosen_cat_names else primary_name
 
-        front_matter = textwrap.dedent(f"""---
-        layout: post
-        title: "{post_title}"
-        date: {post_datetime}
-        categories: {cats_line}
-        category: "{primary_category}"
-        {featured_line}image: {image_url}
-        preview_image: {preview_url}
-        summary: "{summary}"
-        author: "{author['name']}"
-        author_id: "{author['id']}"
-        author_url: "{author_link}"
-        ---
-
-        ![{{{{ page.image_alt | default: page.title }}}}]({{{{ page.image | relative_url }}}})
-
-        """)
+        # Build front matter with no leading indentation to avoid YAML parsing issues
+        fm_lines = [
+            "---",
+            "layout: post",
+            f"title: \"{post_title}\"",
+            f"date: {post_datetime}",
+            f"categories: {cats_line}",
+            f"category: \"{primary_category}\"",
+        ]
+        if featured_line:
+            # featured_line already includes trailing newline; append without extra newline handling
+            fm_lines.append("featured: true")
+        fm_lines += [
+            f"image: {image_url}",
+            f"preview_image: {preview_url}",
+            f"summary: \"{summary}\"",
+            f"author: \"{author['name']}\"",
+            f"author_id: \"{author['id']}\"",
+            f"author_url: \"{author_link}\"",
+            "---",
+            "",
+            "![{{{{ page.image_alt | default: page.title }}}}]({{{{ page.image | relative_url }}}})",
+            "",
+        ]
+        front_matter = "\n".join(fm_lines)
         
         # Prepare story content: ensure the model didn't already include a byline
         story_text = story_response.get('story', '').lstrip()

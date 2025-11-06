@@ -1,19 +1,19 @@
 ---
-        layout: post
-        title: "10 People Transformed Their Fish and the Results Are Absolutely Triumphant!"
-        date: 2025-11-06 05:53:16 +0000
-        categories: ["articles", "Culture", "News"]
-        category: "Culture"
-        featured: true
+layout: post
+title: "10 People Transformed Their Fish and the Results Are Absolutely Triumphant!"
+date: 2025-11-06 05:53:16 +0000
+categories: ["articles", "Culture", "News"]
+category: "Culture"
+featured: true
 image: /assets/images/10-people-transformed-their-fish-and-the-results-are-absolutely-triumphant.png
-        preview_image: /assets/images/10-people-transformed-their-fish-and-the-results-are-absolutely-triumphant-preview.png
-        summary: "In an astonishing turn of events, 10 individuals have turned their pet fish tanks into extravagant, imaginative displays, bringing joy to their finned friends and sparking a wave of aquatic innovation!"
-        author: "Dr. Priya Whiskerworth"
-        author_id: "dr-priya-whiskerworth"
-        author_url: "about.html#dr-priya-whiskerworth"
-        ---
+preview_image: /assets/images/10-people-transformed-their-fish-and-the-results-are-absolutely-triumphant-preview.png
+summary: "In an astonishing turn of events, 10 individuals have turned their pet fish tanks into extravagant, imaginative displays, bringing joy to their finned friends and sparking a wave of aquatic innovation!"
+author: "Dr. Priya Whiskerworth"
+author_id: "dr-priya-whiskerworth"
+author_url: "about.html#dr-priya-whiskerworth"
+---
 
-        ![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
+![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})
 
 By [Dr. Priya Whiskerworth]({{ 'about.html#dr-priya-whiskerworth' | relative_url }})
 
