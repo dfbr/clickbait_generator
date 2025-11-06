@@ -7,7 +7,7 @@ category: "Culture"
 image: /assets/images/this-simple-daily-habit-made-brad-pitt-more-competent.png
 preview_image: /assets/images/this-simple-daily-habit-made-brad-pitt-more-competent-preview.png
 summary: "Discover the unconventional daily habit that's making Brad Pitt more competent. It's unexpected, it's hilarious, and it involves the sky!"
-author: "Carlos "The Cloud" Ramirez"
+author: "Carlos - The Cloud - Ramirez"
 author_id: "carlos-the-cloud-ramirez"
 author_url: "about.html#carlos-the-cloud-ramirez"
 ---
