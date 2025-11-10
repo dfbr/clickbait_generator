@@ -14,6 +14,7 @@ permalink: /articles/:year/:month/:day/:title.html
 
 exclude:
   - clickbait_generator.py
+  - generate_team_photos.py
   - README.md
   - nouns.txt
   - adjectives.txt
@@ -21,10 +22,15 @@ exclude:
   - celebrities.txt
   - professions.txt
   - templates.txt
+  - numbers.txt
   - story_prompt.txt
   - secrets
   - venv/
   - .gitignore
   - .github/
+  - scripts/
+  - tools/
   - "*.pyc"
+  - "*.py"
   - __pycache__/
+  - clickbait_generator.png
