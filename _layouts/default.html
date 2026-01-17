@@ -4,6 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title | escape }} | {{ site.title | escape }}</title>
+  
+  {% comment %} Set meta description with fallback logic {% endcomment %}
+  {% if page.summary %}
+    {% assign meta_description = page.summary | escape %}
+  {% elsif page.excerpt %}
+    {% assign meta_description = page.excerpt | strip_html | strip_newlines | truncate: 160 | escape %}
+  {% else %}
+    {% assign meta_description = site.description | escape %}
+  {% endif %}
+  
+  {% comment %} Set meta image with fallback logic {% endcomment %}
+  {% if page.image %}
+    {% assign meta_image = page.image | absolute_url %}
+  {% elsif page.preview_image %}
+    {% assign meta_image = page.preview_image | absolute_url %}
+  {% elsif site.image %}
+    {% assign meta_image = site.image | absolute_url %}
+  {% endif %}
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:title" content="{{ page.title | escape }}">
+  <meta property="og:description" content="{{ meta_description }}">
+  {% if meta_image %}
+  <meta property="og:image" content="{{ meta_image }}">
+  {% endif %}
+  <meta property="og:site_name" content="{{ site.title | escape }}">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="{{ page.url | absolute_url }}">
+  <meta name="twitter:title" content="{{ page.title | escape }}">
+  <meta name="twitter:description" content="{{ meta_description }}">
+  {% if meta_image %}
+  <meta name="twitter:image" content="{{ meta_image }}">
+  {% endif %}
   <link rel="icon" type="image/png" href="{{ '/assets/clickbait_generator.png' | relative_url }}">
   <link rel="shortcut icon" type="image/png" href="{{ '/assets/clickbait_generator.png' | relative_url }}">
   <link rel="apple-touch-icon" href="{{ '/assets/clickbait_generator.png' | relative_url }}">

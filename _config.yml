@@ -4,6 +4,7 @@ description: >-
   Daily uplifting clickbait stories
 baseurl: "/clickbait_generator"
 url: "https://dfbr.github.io"
+image: /assets/clickbait_generator.png
 theme: minima
 future: true
 plugins:
