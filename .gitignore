@@ -23,5 +23,11 @@ ENV/
 .DS_Store
 Thumbs.db
 
+# Jekyll
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
 # Custom word lists (optional - uncomment if you want to ignore custom files)
 # custom_*.txt
