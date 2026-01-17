@@ -1,8 +1,8 @@
-name: Generate Daily Story
+name: Generate Monthly Story
 
 on:
   schedule:
-    - cron: '0 3 * * 3'  # Every Wednesday at 3 AM GMT
+    - cron: '0 3 3 * *'  # Every month on the 3rd day at 3 AM GMT
   workflow_dispatch:  # Allow manual triggering
 
 permissions:
