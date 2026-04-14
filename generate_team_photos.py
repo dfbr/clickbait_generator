@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Generate team member photos using gpt-image-1-mini"""
 
-from openai import OpenAI
-import requests
+import base64
 import os
 import argparse
+from openai import OpenAI
 
 def main():
     parser = argparse.ArgumentParser(description='Generate team member photos')
@@ -49,13 +49,13 @@ def main():
             model='gpt-image-1-mini',
             prompt=reporter['prompt'],
             size='1024x1024',
-            quality='standard',
+            quality='low',
             n=1
         )
-        
-        image_url = response.data[0].url
-        img_data = requests.get(image_url).content
-        
+
+        # GPT image models always return base64-encoded images
+        img_data = base64.b64decode(response.data[0].b64_json)
+
         filepath = os.path.join('assets', 'images', 'team', reporter['filename'])
         with open(filepath, 'wb') as f:
             f.write(img_data)

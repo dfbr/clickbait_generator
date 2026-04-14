@@ -5,11 +5,11 @@ Generates random clickbait headlines using templates and word lists.
 """
 
 import argparse
+import base64
 import random
 import json
 import os
 import re
-import requests
 from datetime import datetime
 from typing import List
 import textwrap
@@ -147,7 +147,7 @@ def generate_image(api_key: str, headline: str, post_slug: str) -> tuple:
     
     from PIL import Image
     from io import BytesIO
-    
+
     client = OpenAI(api_key=api_key)
     
     # Select a random image style for variety across stories
@@ -168,28 +168,25 @@ def generate_image(api_key: str, headline: str, post_slug: str) -> tuple:
         model="gpt-image-1-mini",
         prompt=image_prompt,
         size="1024x1024",
-        quality="standard",
+        quality="low",
         n=1,
     )
-    
-    image_url = response.data[0].url
-    
-    # Download the image
-    image_response = requests.get(image_url)
-    image_response.raise_for_status()
-    
+
+    # GPT image models always return base64-encoded images
+    image_bytes = base64.b64decode(response.data[0].b64_json)
+
     # Save to assets/images/
     images_dir = 'assets/images'
     os.makedirs(images_dir, exist_ok=True)
     image_filename = f"{images_dir}/{post_slug}.png"
     preview_filename = f"{images_dir}/{post_slug}-preview.png"
-    
+
     # Save full image
     with open(image_filename, 'wb') as f:
-        f.write(image_response.content)
-    
+        f.write(image_bytes)
+
     # Create preview (300x300)
-    img = Image.open(BytesIO(image_response.content))
+    img = Image.open(BytesIO(image_bytes))
     img.thumbnail((300, 300), Image.Resampling.LANCZOS)
     img.save(preview_filename, 'PNG')
     
