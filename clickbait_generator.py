@@ -139,7 +139,7 @@ class ClickbaitGenerator:
 
 
 def generate_image(api_key: str, headline: str, post_slug: str) -> tuple:
-    """Generate an image using DALL-E and save it locally. Returns tuple of (full_image_path, preview_image_path)."""
+    """Generate an image using gpt-image-1-mini and save it locally. Returns tuple of (full_image_path, preview_image_path)."""
     try:
         from openai import OpenAI
     except ImportError:
@@ -150,12 +150,12 @@ def generate_image(api_key: str, headline: str, post_slug: str) -> tuple:
     
     client = OpenAI(api_key=api_key)
     
-    # Create a prompt for DALL-E
+    # Create a prompt for gpt-image-1-mini
     image_prompt = f"A bright, colorful, uplifting editorial illustration for a news article titled: {headline}. Style: modern digital art, vibrant, positive, suitable for a news website."
     
-    # Generate image with DALL-E
+    # Generate image with gpt-image-1-mini
     response = client.images.generate(
-        model="dall-e-3",
+        model="gpt-image-1-mini",
         prompt=image_prompt,
         size="1024x1024",
         quality="standard",
@@ -329,7 +329,7 @@ Examples:
     parser.add_argument('--count', type=int, default=1, help='Number of headlines to generate (default: 1)')
     parser.add_argument('--openai_key', required=False, help='OpenAI API key (or set OPENAI_API_KEY env var)')
     parser.add_argument('--model', default='gpt-4.1-nano', help='OpenAI model to use (default: gpt-4.1-nano)')
-    parser.add_argument('--no-images', action='store_true', help='Skip DALL·E image generation and use placeholders')
+    parser.add_argument('--no-images', action='store_true', help='Skip image generation and use placeholders')
     args = parser.parse_args()
 
     # Allow using OPENAI_API_KEY from environment when --openai_key is not provided
@@ -417,7 +417,7 @@ Examples:
         post_date = datetime.now().strftime('%Y-%m-%d')
         post_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S +0000')
         
-        # Generate image with DALL-E (or skip if requested)
+        # Generate image with gpt-image-1-mini (or skip if requested)
         if getattr(args, 'no_images', False):
             print("Skipping image generation (--no-images); using placeholder paths")
             image_url = "/assets/images/placeholder.png"
@@ -425,7 +425,7 @@ Examples:
             image_path = None
             preview_path = None
         else:
-            print("Generating image with DALL-E...")
+            print("Generating image with gpt-image-1-mini...")
             image_path, preview_path = generate_image(args.openai_key, post_title, post_slug)
             image_url = f"/assets/images/{post_slug}.png"
             preview_url = f"/assets/images/{post_slug}-preview.png"

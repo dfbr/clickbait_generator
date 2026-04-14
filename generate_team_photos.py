@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate team member photos using DALL-E"""
+"""Generate team member photos using gpt-image-1-mini"""
 
 from openai import OpenAI
 import requests
@@ -46,7 +46,7 @@ def main():
     for reporter in reporters:
         print(f"Generating image for {reporter['name']}...")
         response = client.images.generate(
-            model='dall-e-3',
+            model='gpt-image-1-mini',
             prompt=reporter['prompt'],
             size='1024x1024',
             quality='standard',

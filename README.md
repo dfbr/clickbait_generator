@@ -1,6 +1,6 @@
 # Clickbait Story Generator
 
-An automated clickbait headline and story generator that creates complete articles with images and publishes them to a Jekyll-based GitHub Pages site. The system uses OpenAI's GPT models to generate engaging stories from clickbait headlines, and DALL-E 3 to create custom images for each article.
+An automated clickbait headline and story generator that creates complete articles with images and publishes them to a Jekyll-based GitHub Pages site. The system uses OpenAI's GPT models to generate engaging stories from clickbait headlines, and gpt-image-1-mini to create custom images for each article.
 
 🌐 **Live Site**: [https://dfbr.github.io/clickbait_generator/](https://dfbr.github.io/clickbait_generator/)
 
@@ -9,7 +9,7 @@ An automated clickbait headline and story generator that creates complete articl
 ### Content Generation
 - 15+ different clickbait headline templates (easily customizable)
 - OpenAI GPT-4 integration for complete story generation
-- DALL-E 3 image generation for each article
+- gpt-image-1-mini image generation for each article
 - Automatic preview thumbnails (300x300) for the index page
 - 20-30 word summary teasers for each story
 - Customizable word lists (nouns, adjectives, verbs, celebrities, professions)
@@ -154,7 +154,7 @@ clickbait_generator/
    - A complete story (3-5 paragraphs)
    - A 20-30 word summary teaser
    - All returned as JSON
-3. **Image Generation**: DALL-E 3 creates a vivid, dramatic illustration based on the headline
+3. **Image Generation**: gpt-image-1-mini creates a vivid, dramatic illustration based on the headline
 4. **Thumbnail Creation**: A 300x300 preview image is generated using Pillow (PIL)
 5. **Jekyll Post Creation**: A markdown file is created in `_posts/` with:
    - Front matter (title, date, image URLs, summary, etc.)
@@ -166,7 +166,7 @@ clickbait_generator/
 
 The system uses two OpenAI APIs:
 - **GPT-4** (or gpt-4-turbo): Generates the story content and summary
-- **DALL-E 3**: Creates HD (1792×1024) images for each story
+- **gpt-image-1-mini**: Creates images for each story
 
 The story prompt (`story_prompt.txt`) instructs the model to write uplifting, feel-good stories with vivid details and positive messages.
 
@@ -265,7 +265,7 @@ The generator includes 15 different clickbait styles:
 
 ### Dependencies
 
-- **openai** (≥1.0.0): OpenAI API client for GPT-4 and DALL-E 3
+- **openai** (≥1.0.0): OpenAI API client for GPT-4 and gpt-image-1-mini
 - **requests**: HTTP library for downloading generated images
 - **Pillow**: Image processing for creating preview thumbnails
 
@@ -273,10 +273,10 @@ The generator includes 15 different clickbait styles:
 
 Approximate costs per story (as of 2025):
 - GPT-4 story generation: ~$0.01-0.03 per story
-- DALL-E 3 HD image: ~$0.08 per image
-- **Total per story**: ~$0.09-0.11
+- gpt-image-1-mini image: ~$0.02 per image
+- **Total per story**: ~$0.03-0.05
 
-Running daily = ~$2.70-3.30/month
+Running daily = ~$0.90-1.50/month
 
 ### Jekyll Configuration
 
@@ -343,7 +343,7 @@ summary: "Discover how scientists unlocked the mind-bending properties of quantu
 ### OpenAI API Errors
 
 - **Authentication failed**: Check your API key is correct and has available credits
-- **Model not found**: Ensure you have access to GPT-4 and DALL-E 3 (may require paid account)
+- **Model not found**: Ensure you have access to GPT-4 and gpt-image-1-mini (may require paid account)
 - **Rate limit**: The API has rate limits; space out multiple generations
 
 ### Jekyll Build Errors
@@ -375,7 +375,7 @@ Free to use and modify!
 
 ## Acknowledgments
 
-- OpenAI for GPT-4 and DALL-E 3 APIs
+- OpenAI for GPT-4 and gpt-image-1-mini APIs
 - Jekyll for static site generation
 - GitHub Pages for free hosting
 - The wonderful world of clickbait for inspiration 🎉
