@@ -2,7 +2,7 @@
 
 An automated clickbait headline and story generator that creates complete articles with images and publishes them to a Jekyll-based GitHub Pages site. The system uses OpenAI's GPT models to generate engaging stories from clickbait headlines, and gpt-image-1-mini to create custom images for each article.
 
-🌐 **Live Site**: [https://dfbr.github.io/clickbait_generator/](https://dfbr.github.io/clickbait_generator/)
+🌐 **Live Site**: [https://clickbait.dfbr.co.uk](https://clickbait.dfbr.co.uk)
 
 ## Features
 
@@ -91,7 +91,7 @@ gem install jekyll bundler
 jekyll serve
 ```
 
-3. Visit `http://localhost:4000/clickbait_generator/` in your browser
+3. Visit `http://localhost:4000/` in your browser
 
 ### Automated Daily Generation
 
@@ -281,7 +281,7 @@ Running daily = ~$0.90-1.50/month
 ### Jekyll Configuration
 
 Key settings in `_config.yml`:
-- `baseurl: "/clickbait_generator"` - Subdirectory for GitHub Pages
+- `baseurl: ""` - Empty when using a custom domain (site served from root)
 - `future: true` - Allows posts with future dates to be published
 - `permalink: /articles/:year/:month/:day/:title.html` - URL structure
 - Plugins: `jekyll-feed`, `jekyll-seo-tag`
@@ -296,7 +296,7 @@ Key settings in `_config.yml`:
 4. Select branch: `main`, folder: `/ (root)`
 5. Click Save
 
-Your site will be available at: `https://[username].github.io/clickbait_generator/`
+Your site will be available at: `https://clickbait.dfbr.co.uk`
 
 ### Setting Up Automation
 
@@ -323,8 +323,8 @@ Your site will be available at: `https://[username].github.io/clickbait_generato
 layout: post
 title: "7 Shocking Secrets About Quantum Coffee That Will Transform Your Mind"
 date: 2025-11-03 15:30:00 +0000
-image: /clickbait_generator/assets/images/posts/2025-11-03-quantum-coffee.png
-preview_image: /clickbait_generator/assets/images/posts/previews/2025-11-03-quantum-coffee.png
+image: /assets/images/posts/2025-11-03-quantum-coffee.png
+preview_image: /assets/images/posts/previews/2025-11-03-quantum-coffee.png
 summary: "Discover how scientists unlocked the mind-bending properties of quantum-enhanced coffee beans that defy reality itself."
 ---
 
