@@ -150,9 +150,19 @@ def generate_image(api_key: str, headline: str, post_slug: str) -> tuple:
     
     client = OpenAI(api_key=api_key)
     
-    # Create a prompt for gpt-image-1-mini
-    image_prompt = f"A bright, colorful, uplifting editorial illustration for a news article titled: {headline}. Style: modern digital art, vibrant, positive, suitable for a news website."
-    
+    # Select a random image style for variety across stories
+    image_styles = [
+        f"A bright, colorful, uplifting editorial illustration for a news article titled: {headline}. Style: modern digital art, vibrant, positive, suitable for a news website.",
+        f"A retro pop-art style illustration inspired by the news headline: {headline}. Bold outlines, halftone dots, vivid primary colors, 1960s comic book aesthetic.",
+        f"A whimsical watercolor illustration for a lighthearted news story titled: {headline}. Soft washes of pastel color, loose painterly strokes, charming and playful.",
+        f"A dramatic cinematic scene capturing the essence of: {headline}. Style: golden hour lighting, rich warm tones, sweeping landscape, epic and awe-inspiring.",
+        f"A flat design infographic-style illustration for an article about: {headline}. Minimalist geometric shapes, clean lines, bold accent colors on a white background.",
+        f"A vintage newspaper engraving style illustration evoking the story: {headline}. Cross-hatching, sepia tones, classic editorial art from the 1920s.",
+        f"A lively cartoon illustration in the style of a Sunday newspaper comic strip, depicting: {headline}. Expressive characters, bright colors, energetic and fun.",
+        f"A detailed isometric illustration representing the concept of: {headline}. Clean 3D perspective, pastel palette, modern and playful.",
+    ]
+    image_prompt = random.choice(image_styles)
+
     # Generate image with gpt-image-1-mini
     response = client.images.generate(
         model="gpt-image-1-mini",
