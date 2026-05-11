@@ -25,7 +25,8 @@ title: Home
 {% if paginator.total_pages > 1 %}
   {% assign first_page_path = paginator.first_page_path | default: '/' %}
   {% assign pagination_path_template = site.paginate_path | default: '/page:num/' %}
-  {% assign last_page_path = pagination_path_template | replace: ':num', paginator.total_pages %}
+  {% assign fallback_last_page_path = pagination_path_template | replace: ':num', paginator.total_pages %}
+  {% assign last_page_path = paginator.last_page_path | default: fallback_last_page_path %}
   <nav class="pagination" aria-label="Pagination">
     {% if paginator.previous_page %}
       <a href="{{ first_page_path | relative_url }}" class="pagination-link" rel="first" aria-label="Go to first page">« First</a>
