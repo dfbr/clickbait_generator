@@ -116,5 +116,6 @@ article.post a:hover {
   opacity: 0.5;
   border-color: #999;
   color: #999;
+  cursor: not-allowed;
   pointer-events: none;
 }

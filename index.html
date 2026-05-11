@@ -25,7 +25,7 @@ title: Home
 {% if paginator.total_pages > 1 %}
   <nav class="pagination" aria-label="Pagination">
     {% if paginator.previous_page %}
-      <a href="{{ '/' | relative_url }}" class="pagination-link" rel="first">« First</a>
+      <a href="{{ paginator.first_page_path | default: '/' | relative_url }}" class="pagination-link" rel="first">« First</a>
       <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-link" rel="prev">← Newer</a>
     {% else %}
       <span class="pagination-link pagination-link-disabled">« First</span>
