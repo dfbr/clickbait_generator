@@ -28,13 +28,13 @@ title: Home
       <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-link">← Newer</a>
     {% endif %}
 
-    {% for page_number in (1..paginator.total_pages) %}
-      {% if page_number == paginator.page %}
-        <span class="pagination-link pagination-link-current">{{ page_number }}</span>
-      {% elsif page_number == 1 %}
-        <a href="{{ '/' | relative_url }}" class="pagination-link">{{ page_number }}</a>
+    {% for page_num in (1..paginator.total_pages) %}
+      {% if page_num == paginator.page %}
+        <span class="pagination-link pagination-link-current">{{ page_num }}</span>
+      {% elsif page_num == 1 %}
+        <a href="{{ '/' | relative_url }}" class="pagination-link">{{ page_num }}</a>
       {% else %}
-        <a href="{{ site.paginate_path | replace: ':num', page_number | relative_url }}" class="pagination-link">{{ page_number }}</a>
+        <a href="{{ site.paginate_path | replace: ':num', page_num | relative_url }}" class="pagination-link">{{ page_num }}</a>
       {% endif %}
     {% endfor %}
 
