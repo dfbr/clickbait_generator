@@ -4,7 +4,7 @@ title: Home
 ---
 
 <div class="post-grid">
-  {% for post in site.posts %}
+  {% for post in paginator.posts %}
     <article class="post-card">
       <a href="{{ post.url | relative_url }}" class="post-card-link">
         {% if post.preview_image %}
@@ -21,3 +21,25 @@ title: Home
     </article>
   {% endfor %}
 </div>
+
+{% if paginator.total_pages > 1 %}
+  <nav class="pagination">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-link">← Newer</a>
+    {% endif %}
+
+    {% for page in (1..paginator.total_pages) %}
+      {% if page == paginator.page %}
+        <span class="pagination-link pagination-link-current">{{ page }}</span>
+      {% elsif page == 1 %}
+        <a href="{{ '/' | relative_url }}" class="pagination-link">{{ page }}</a>
+      {% else %}
+        <a href="{{ site.paginate_path | replace: ':num', page | relative_url }}" class="pagination-link">{{ page }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-link">Older →</a>
+    {% endif %}
+  </nav>
+{% endif %}
