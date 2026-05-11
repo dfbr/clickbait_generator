@@ -83,3 +83,39 @@ article.post a:hover {
     gap: 1rem;
   }
 }
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 2rem 0 1rem;
+}
+
+.pagination-link {
+  display: inline-block;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #c8102e;
+  border-radius: 6px;
+  color: #c8102e;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.pagination-link:hover {
+  background: #c8102e;
+  color: #fff;
+}
+
+.pagination-link-current {
+  background: #c8102e;
+  color: #fff;
+}
+
+.pagination-link-disabled {
+  opacity: 0.5;
+  border-color: #999;
+  color: #999;
+  cursor: not-allowed;
+  pointer-events: none;
+}
