@@ -23,9 +23,13 @@ title: Home
 </div>
 
 {% if paginator.total_pages > 1 %}
-  <nav class="pagination">
+  <nav class="pagination" aria-label="Pagination">
     {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-link">← Newer</a>
+      <a href="{{ '/' | relative_url }}" class="pagination-link" rel="first">« First</a>
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-link" rel="prev">← Newer</a>
+    {% else %}
+      <span class="pagination-link pagination-link-disabled">« First</span>
+      <span class="pagination-link pagination-link-disabled">← Newer</span>
     {% endif %}
 
     {% for page_num in (1..paginator.total_pages) %}
@@ -39,7 +43,11 @@ title: Home
     {% endfor %}
 
     {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-link">Older →</a>
+      <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-link" rel="next">Older →</a>
+      <a href="{{ site.paginate_path | replace: ':num', paginator.total_pages | relative_url }}" class="pagination-link" rel="last">Last »</a>
+    {% else %}
+      <span class="pagination-link pagination-link-disabled">Older →</span>
+      <span class="pagination-link pagination-link-disabled">Last »</span>
     {% endif %}
   </nav>
 {% endif %}
