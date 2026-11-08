@@ -221,8 +221,8 @@ def call_openai_api(api_key: str, model: str, prompt: str, headlines: list,
             {"role": "system", "content": "You are a creative and positive news reporter in the tabloid tradition writing clickbait stories. Always return your response as valid JSON with properly escaped strings."},
             {"role": "user", "content": user_content}
         ],
-        max_tokens=1200,
-        temperature=0.8
+        max_completion_tokens=1200,
+        reasoning_effort="none",
     )
     # Extract the content from the response
     content = response.choices[0].message.content
@@ -283,8 +283,8 @@ def suggest_categories(api_key: str, model: str, candidates: list, headline: str
                 {"role": "system", "content": "You are a helpful categorization assistant."},
                 {"role": "user", "content": user_msg}
             ],
-            max_tokens=200,
-            temperature=0.0,
+            max_completion_tokens=200,
+            reasoning_effort="none",
         )
         content = resp.choices[0].message.content.strip()
         if content.startswith('```'):
@@ -324,7 +324,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  %(prog)s --openai_key sk-... --model gpt-4 --count 5
+  %(prog)s --openai_key sk-... --count 5
         """
     )
     parser.add_argument('-n', '--nouns', default='nouns.txt', help='File containing nouns (default: nouns.txt)')
@@ -335,7 +335,7 @@ Examples:
     parser.add_argument('-t', '--templates', default='templates.txt', help='File containing headline templates (default: templates.txt)')
     parser.add_argument('--count', type=int, default=1, help='Number of headlines to generate (default: 1)')
     parser.add_argument('--openai_key', required=False, help='OpenAI API key (or set OPENAI_API_KEY env var)')
-    parser.add_argument('--model', default='gpt-4.1-nano', help='OpenAI model to use (default: gpt-4.1-nano)')
+    parser.add_argument('--model', default='gpt-6-luna', help='OpenAI model to use (default: gpt-6-luna)')
     parser.add_argument('--no-images', action='store_true', help='Skip image generation and use placeholders')
     args = parser.parse_args()
 

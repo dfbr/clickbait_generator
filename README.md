@@ -8,7 +8,7 @@ An automated clickbait headline and story generator that creates complete articl
 
 ### Content Generation
 - 15+ different clickbait headline templates (easily customizable)
-- OpenAI GPT-4 integration for complete story generation
+- OpenAI GPT (gpt-6-luna by default) integration for complete story generation
 - gpt-image-1-mini image generation for each article
 - Automatic preview thumbnails (300x300) for the index page
 - 20-30 word summary teasers for each story
@@ -71,12 +71,12 @@ pip install openai requests Pillow
 
 Generate a single story with OpenAI integration:
 ```bash
-python clickbait_generator.py --openai_key YOUR_API_KEY --model gpt-4
+python clickbait_generator.py --openai_key YOUR_API_KEY
 ```
 
 Generate multiple stories:
 ```bash
-python clickbait_generator.py --count 5 --openai_key YOUR_API_KEY --model gpt-4
+python clickbait_generator.py --count 5 --openai_key YOUR_API_KEY
 ```
 
 ### Testing Jekyll Site Locally
@@ -113,7 +113,7 @@ The GitHub Actions workflow runs automatically every day at 3 AM GMT, generating
 | `--templates` | `-t` | File containing headline templates | `templates.txt` |
 | `--count` | | Number of stories to generate | `1` |
 | `--openai_key` | | OpenAI API key (required for story generation) | None |
-| `--model` | | OpenAI model to use | `gpt-4` |
+| `--model` | | OpenAI model to use | `gpt-6-luna` |
 
 ## File Structure
 
@@ -150,7 +150,7 @@ clickbait_generator/
 ### Story Generation Process
 
 1. **Headline Creation**: The script randomly selects a template and fills it with words from the word lists
-2. **Story Generation**: The headline is sent to OpenAI GPT-4 with a custom prompt requesting:
+2. **Story Generation**: The headline is sent to OpenAI (gpt-6-luna by default) with a custom prompt requesting:
    - A complete story (3-5 paragraphs)
    - A 20-30 word summary teaser
    - All returned as JSON
@@ -165,7 +165,7 @@ clickbait_generator/
 ### OpenAI Integration
 
 The system uses two OpenAI APIs:
-- **GPT-4** (or gpt-4-turbo): Generates the story content and summary
+- **gpt-6-luna** (default; override with `--model`): Generates the story content and summary
 - **gpt-image-1-mini**: Creates images for each story
 
 The story prompt (`story_prompt.txt`) instructs the model to write uplifting, feel-good stories with vivid details and positive messages.
@@ -265,14 +265,14 @@ The generator includes 15 different clickbait styles:
 
 ### Dependencies
 
-- **openai** (≥1.0.0): OpenAI API client for GPT-4 and gpt-image-1-mini
+- **openai** (≥1.0.0): OpenAI API client for the story model and gpt-image-1-mini
 - **requests**: HTTP library for downloading generated images
 - **Pillow**: Image processing for creating preview thumbnails
 
 ### OpenAI API Costs
 
 Approximate costs per story (as of 2025):
-- GPT-4 story generation: ~$0.01-0.03 per story
+- gpt-6-luna story generation: well under $0.01 per story
 - gpt-image-1-mini image: ~$0.02 per image
 - **Total per story**: ~$0.03-0.05
 
@@ -343,7 +343,7 @@ summary: "Discover how scientists unlocked the mind-bending properties of quantu
 ### OpenAI API Errors
 
 - **Authentication failed**: Check your API key is correct and has available credits
-- **Model not found**: Ensure you have access to GPT-4 and gpt-image-1-mini (may require paid account)
+- **Model not found**: Ensure you have access to the chosen story model and gpt-image-1-mini (may require paid account)
 - **Rate limit**: The API has rate limits; space out multiple generations
 
 ### Jekyll Build Errors
@@ -375,7 +375,7 @@ Free to use and modify!
 
 ## Acknowledgments
 
-- OpenAI for GPT-4 and gpt-image-1-mini APIs
+- OpenAI for the GPT and gpt-image-1-mini APIs
 - Jekyll for static site generation
 - GitHub Pages for free hosting
 - The wonderful world of clickbait for inspiration 🎉
