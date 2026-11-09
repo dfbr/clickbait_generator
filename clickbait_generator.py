@@ -1,169 +1,129 @@
 #!/usr/bin/env python3
 """
-Clickbait Headline Generator
-Generates random clickbait headlines using templates and word lists.
+Clickbait Story Generator
+Uses an LLM to invent a clickbait headline and write the full story, summary,
+categories and illustration brief in a single request, then generates the
+illustration from that brief and saves everything as a Jekyll post.
 """
 
 import argparse
 import base64
-import random
+import glob
 import json
 import os
+import random
 import re
 from datetime import datetime
-from typing import List
-import textwrap
 
 
-class ClickbaitGenerator:
-    """Generate clickbait headlines from template patterns."""
-    
-    def __init__(self, nouns_file: str, adjectives_file: str, verbs_file: str, 
-                 celebrities_file: str, professions_file: str, templates_file: str):
-        """Initialize the generator with word lists from files."""
-        self.nouns = self._load_words(nouns_file)
-        self.adjectives = self._load_words(adjectives_file)
-        self.verbs = self._load_words(verbs_file)
-        self.celebrities = self._load_words(celebrities_file)
-        self.professions = self._load_words(professions_file)
-        self.templates = self._load_templates(templates_file)
-        
-        # Common clickbait numbers (weighted towards more clickbait-friendly values)
-        self.clickbait_numbers = [3, 5, 7, 10, 12, 15, 17, 20, 25, 30, 50, 100]
-    
-    def _load_templates(self, filename: str) -> List[str]:
-        """Load headline templates from a file."""
+SYSTEM_PROMPT = (
+    "You are a creative and positive news reporter in the tabloid tradition "
+    "writing clickbait stories."
+)
+
+# How many recent headlines to show the model so it avoids repeating itself.
+RECENT_HEADLINE_COUNT = 20
+
+
+def story_schema(category_names: list) -> dict:
+    """JSON schema for the single story-generation response (OpenAI structured outputs)."""
+    return {
+        "name": "clickbait_story",
+        "strict": True,
+        "schema": {
+            "type": "object",
+            "properties": {
+                "headline": {"type": "string"},
+                "summary": {"type": "string"},
+                "categories": {
+                    "type": "array",
+                    "items": {"type": "string", "enum": category_names},
+                },
+                "story": {"type": "string"},
+                "image_prompt": {"type": "string"},
+                "image_alt": {"type": "string"},
+            },
+            "required": ["headline", "summary", "categories", "story", "image_prompt", "image_alt"],
+            "additionalProperties": False,
+        },
+    }
+
+
+def recent_headlines(posts_dir: str = '_posts', limit: int = RECENT_HEADLINE_COUNT) -> list:
+    """Return the titles of the most recent posts, newest first."""
+    titles = []
+    for path in sorted(glob.glob(os.path.join(posts_dir, '*.md')), reverse=True)[:limit]:
         try:
-            with open(filename, 'r', encoding='utf-8') as f:
-                templates = []
+            with open(path, 'r', encoding='utf-8') as f:
                 for line in f:
-                    line = line.strip()
-                    # Skip comments and blank lines
-                    if line and not line.startswith('#'):
-                        templates.append(line)
-            if not templates:
-                raise ValueError(f"No templates found in {filename}")
-            return templates
-        except FileNotFoundError:
-            raise FileNotFoundError(f"Required file not found: {filename}")
-        except Exception as e:
-            raise Exception(f"Error loading {filename}: {e}")
-    
-    def _load_words(self, filename: str) -> List[str]:
-        """Load words from a file, one word per line."""
-        try:
-            with open(filename, 'r', encoding='utf-8') as f:
-                words = [line.strip() for line in f if line.strip()]
-            if not words:
-                raise ValueError(f"File {filename} is empty")
-            return words
-        except FileNotFoundError:
-            raise FileNotFoundError(f"Required file not found: {filename}")
-        except Exception as e:
-            raise Exception(f"Error loading {filename}: {e}")
-    
-    def _random_noun(self) -> str:
-        """Get a random noun."""
-        return random.choice(self.nouns)
-    
-    def _random_adjective(self) -> str:
-        """Get a random adjective."""
-        return random.choice(self.adjectives)
-    
-    def _random_verb(self) -> str:
-        """Get a random verb."""
-        return random.choice(self.verbs)
-    
-    def _random_number(self) -> str:
-        """Get a random number between 1-100, with preference for clickbait-friendly values."""
-        # 70% chance of using clickbait-friendly numbers, 30% chance of random 1-100
-        if random.random() < 0.7:
-            return str(random.choice(self.clickbait_numbers))
-        else:
-            return str(random.randint(1, 100))
-    
-    def _random_percentage(self) -> str:
-        """Get a random percentage for 'x% of people' style headlines."""
-        # Generate percentage that makes sense (usually low to make it exclusive)
-        percentages = [1, 2, 3, 5, 10, 15, 20, 25, 30, 50, 75, 90, 95, 99]
-        return str(random.choice(percentages))
-    
-    def _random_celebrity(self) -> str:
-        """Get a random celebrity name."""
-        return random.choice(self.celebrities)
-    
-    def _random_profession(self) -> str:
-        """Get a random profession."""
-        return random.choice(self.professions)
-    
-    def _fill_template(self, template: str) -> str:
-        """Fill a template string with random values."""
-        result = template
-        
-        # Replace all placeholders - need to handle multiple occurrences
-        while '<number>' in result:
-            result = result.replace('<number>', self._random_number(), 1)
-        
-        while '<percentage>' in result:
-            result = result.replace('<percentage>', self._random_percentage(), 1)
-        
-        while '<adjective>' in result:
-            result = result.replace('<adjective>', self._random_adjective(), 1)
-        
-        while '<noun>' in result:
-            result = result.replace('<noun>', self._random_noun(), 1)
-        
-        while '<verb>' in result:
-            result = result.replace('<verb>', self._random_verb(), 1)
-        
-        while '<celebrity>' in result:
-            result = result.replace('<celebrity>', self._random_celebrity(), 1)
-        
-        while '<profession>' in result:
-            result = result.replace('<profession>', self._random_profession(), 1)
-        
-        # Capitalize first letter of the headline
-        if result:
-            result = result[0].upper() + result[1:]
-        
-        return result
-    
-    def generate(self, count: int = 1) -> List[str]:
-        """Generate the specified number of clickbait headlines."""
-        headlines = []
-        for _ in range(count):
-            template = random.choice(self.templates)
-            headline = self._fill_template(template)
-            headlines.append(headline)
-        return headlines
+                    m = re.match(r'^title:\s*(.+?)\s*$', line)
+                    if m:
+                        title = m.group(1)
+                        if len(title) >= 2 and title[0] == title[-1] and title[0] in '"\'':
+                            title = title[1:-1]
+                        titles.append(title)
+                        break
+        except OSError:
+            continue
+    return titles
 
 
-def generate_image(api_key: str, headline: str, post_slug: str) -> tuple:
-    """Generate an image using gpt-image-1-mini and save it locally. Returns tuple of (full_image_path, preview_image_path)."""
+def generate_story(api_key: str, model: str, prompt: str, author: dict,
+                   category_names: list, recent: list) -> dict:
+    """Make the single LLM call that creates the headline, story, summary,
+    categories and image brief. Returns the parsed JSON as a dict."""
     try:
         from openai import OpenAI
     except ImportError:
         raise ImportError("The openai package is required. Install it with 'pip install openai'.")
-    
+    client = OpenAI(api_key=api_key)
+
+    # Static instructions first, per-run details last, so the shared prefix is cacheable.
+    user_content = (
+        prompt
+        + "\n\nAllowed categories: " + json.dumps(category_names)
+        + "\n\nAuthor (write in their voice and tone):\n"
+        + f"author_name: {author.get('name', '')}\n"
+        + f"author_bio: {author.get('bio', '')}\n"
+        + "\nRecent headlines on the site (do not repeat or imitate these):\n"
+        + "\n".join(f"- {h}" for h in recent)
+    )
+
+    response = client.chat.completions.create(
+        model=model,
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": user_content},
+        ],
+        response_format={"type": "json_schema", "json_schema": story_schema(category_names)},
+        max_completion_tokens=2500,
+        reasoning_effort="none",
+    )
+    message = response.choices[0].message
+    if getattr(message, 'refusal', None):
+        raise RuntimeError(f"Model refused to write a story: {message.refusal}")
+    if response.choices[0].finish_reason == 'length':
+        raise RuntimeError("Model response was truncated (hit max_completion_tokens).")
+
+    data = json.loads(message.content)
+    for key in ("headline", "story", "summary", "image_prompt"):
+        if not str(data.get(key, '')).strip():
+            raise RuntimeError(f"Model response is missing '{key}'.")
+    return data
+
+
+def generate_image(api_key: str, image_prompt: str, post_slug: str) -> tuple:
+    """Generate an image from the LLM-written prompt with gpt-image-1-mini and save it locally.
+    Returns tuple of (full_image_path, preview_image_path)."""
+    try:
+        from openai import OpenAI
+    except ImportError:
+        raise ImportError("The openai package is required. Install it with 'pip install openai'.")
+
     from PIL import Image
     from io import BytesIO
 
     client = OpenAI(api_key=api_key)
-    
-    # Select a random image style for variety across stories
-    image_styles = [
-        f"A bright, colorful, uplifting editorial illustration for a news article titled: {headline}. Style: modern digital art, vibrant, positive, suitable for a news website.",
-        f"A retro pop-art style illustration inspired by the news headline: {headline}. Bold outlines, halftone dots, vivid primary colors, 1960s comic book aesthetic.",
-        f"A whimsical watercolor illustration for a lighthearted news story titled: {headline}. Soft washes of pastel color, loose painterly strokes, charming and playful.",
-        f"A dramatic cinematic scene capturing the essence of: {headline}. Style: golden hour lighting, rich warm tones, sweeping landscape, epic and awe-inspiring.",
-        f"A flat design infographic-style illustration for an article about: {headline}. Minimalist geometric shapes, clean lines, bold accent colors on a white background.",
-        f"A vintage newspaper engraving style illustration evoking the story: {headline}. Cross-hatching, sepia tones, classic editorial art from the 1920s.",
-        f"A lively cartoon illustration in the style of a Sunday newspaper comic strip, depicting: {headline}. Expressive characters, bright colors, energetic and fun.",
-        f"A detailed isometric illustration representing the concept of: {headline}. Clean 3D perspective, pastel palette, modern and playful.",
-    ]
-    image_prompt = random.choice(image_styles)
-
-    # Generate image with gpt-image-1-mini
     response = client.images.generate(
         model="gpt-image-1-mini",
         prompt=image_prompt,
@@ -175,13 +135,11 @@ def generate_image(api_key: str, headline: str, post_slug: str) -> tuple:
     # GPT image models always return base64-encoded images
     image_bytes = base64.b64decode(response.data[0].b64_json)
 
-    # Save to assets/images/
     images_dir = 'assets/images'
     os.makedirs(images_dir, exist_ok=True)
     image_filename = f"{images_dir}/{post_slug}.png"
     preview_filename = f"{images_dir}/{post_slug}-preview.png"
 
-    # Save full image
     with open(image_filename, 'wb') as f:
         f.write(image_bytes)
 
@@ -189,124 +147,8 @@ def generate_image(api_key: str, headline: str, post_slug: str) -> tuple:
     img = Image.open(BytesIO(image_bytes))
     img.thumbnail((300, 300), Image.Resampling.LANCZOS)
     img.save(preview_filename, 'PNG')
-    
+
     return image_filename, preview_filename
-
-
-def call_openai_api(api_key: str, model: str, prompt: str, headlines: list,
-                    author_name: str | None = None,
-                    author_bio: str | None = None,
-                    author_link: str | None = None) -> dict:
-    """Send the prompt and headlines to OpenAI and return the response as dict. Supports openai>=1.0.0."""
-    try:
-        from openai import OpenAI
-    except ImportError:
-        raise ImportError("The openai package is required. Install it with 'pip install openai'.")
-    client = OpenAI(api_key=api_key)
-    user_content = prompt + "\n\nHeadlines: " + json.dumps(headlines)
-    # Inject author context so the model can add a byline linking to About page
-    if author_name and author_link:
-        user_content += (
-            "\n\nAuthor Context (for byline):\n"
-            f"author_name: {author_name}\n"
-            f"author_bio: {author_bio or ''}\n"
-            f"author_link: {author_link}\n"
-            "Instruction: The story string MUST begin with a single markdown byline line in the exact form\n"
-            "By [AUTHOR_NAME](AUTHOR_LINK)\n"
-            "Replace AUTHOR_NAME and AUTHOR_LINK with the provided values. Add a blank line after the byline, then the story."
-        )
-    response = client.chat.completions.create(
-        model=model,
-        messages=[
-            {"role": "system", "content": "You are a creative and positive news reporter in the tabloid tradition writing clickbait stories. Always return your response as valid JSON with properly escaped strings."},
-            {"role": "user", "content": user_content}
-        ],
-        max_completion_tokens=1200,
-        reasoning_effort="none",
-    )
-    # Extract the content from the response
-    content = response.choices[0].message.content
-    
-    # Strip markdown code fences if present
-    content = content.strip()
-    if content.startswith('```'):
-        # Remove markdown code fences
-        lines = content.split('\n')
-        if lines[0].startswith('```'):
-            lines = lines[1:]
-        if lines and lines[-1].startswith('```'):
-            lines = lines[:-1]
-        content = '\n'.join(lines)
-    
-    try:
-        # Try parsing with strict=False to allow control characters
-        return json.loads(content, strict=False)
-    except json.JSONDecodeError as e:
-        # If that fails, try to fix common issues
-        print(f"\n=== Attempting to repair JSON ===")
-        # The issue is that the story field contains literal newlines
-        # We need to parse it differently
-        try:
-            import ast
-            # Try using ast.literal_eval as a fallback
-            return ast.literal_eval(content)
-        except:
-            print(f"JSON Parse Error: {e}")
-            print(f"Content preview: {content[:200]}")
-            raise
-
-
-def suggest_categories(api_key: str, model: str, candidates: list, headline: str, summary: str, max_choices: int = 2) -> list:
-    """Ask OpenAI to suggest up to max_choices categories from the provided candidates list.
-    Returns a list of category names (strings). On failure returns an empty list.
-    """
-    try:
-        from openai import OpenAI
-    except ImportError:
-        print("OpenAI SDK not available; falling back to empty categories list.")
-        return []
-    client = OpenAI(api_key=api_key)
-    # Prepare a compact instruction to return JSON only
-    candidate_names = [c.get('name') if isinstance(c, dict) else str(c) for c in candidates]
-    user_msg = (
-        "You are given a short article headline and summary and a fixed list of possible categories. "
-        "Choose up to %d categories from the list that best describe the article. "
-        "Return ONLY a JSON object with the key \"categories\" containing an array of category names exactly as they appear in the list. "
-        "If none apply, return an empty array. Do not include any extra text.\n\n" % max_choices
-    )
-    user_msg += f"Headline: {headline}\nSummary: {summary}\nCategories: {json.dumps(candidate_names)}"
-
-    try:
-        resp = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": "You are a helpful categorization assistant."},
-                {"role": "user", "content": user_msg}
-            ],
-            max_completion_tokens=200,
-            reasoning_effort="none",
-        )
-        content = resp.choices[0].message.content.strip()
-        if content.startswith('```'):
-            # strip code fences
-            lines = content.split('\n')
-            if lines[0].startswith('```'):
-                lines = lines[1:]
-            if lines and lines[-1].startswith('```'):
-                lines = lines[:-1]
-            content = '\n'.join(lines).strip()
-        # parse JSON
-        parsed = json.loads(content, strict=False)
-        cats = parsed.get('categories') if isinstance(parsed, dict) else []
-        if not isinstance(cats, list):
-            return []
-        # Normalize: keep only names that appear in candidate_names
-        chosen = [c for c in cats if c in candidate_names]
-        # limit to max_choices
-        return chosen[:max_choices]
-    except Exception as e:
-        print(f"Category suggestion failed: {e}")
-        return []
 
 
 def slugify(value):
@@ -318,215 +160,159 @@ def slugify(value):
     return value.strip('-')
 
 
+def yaml_str(value: str) -> str:
+    """Quote a string for YAML front matter (JSON strings are valid YAML)."""
+    return json.dumps(value, ensure_ascii=False)
+
+
 def main():
     parser = argparse.ArgumentParser(
-        description='Generate random clickbait headlines and create a story using OpenAI',
+        description='Create a complete clickbait story (headline, text and image) with OpenAI',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  %(prog)s --openai_key sk-... --count 5
+  %(prog)s --openai_key sk-...
+  %(prog)s --no-images
         """
     )
-    parser.add_argument('-n', '--nouns', default='nouns.txt', help='File containing nouns (default: nouns.txt)')
-    parser.add_argument('-a', '--adjectives', default='adjectives.txt', help='File containing adjectives (default: adjectives.txt)')
-    parser.add_argument('-v', '--verbs', default='verbs.txt', help='File containing verbs (default: verbs.txt)')
-    parser.add_argument('-c', '--celebrities', default='celebrities.txt', help='File containing celebrity names (default: celebrities.txt)')
-    parser.add_argument('-p', '--professions', default='professions.txt', help='File containing professions (default: professions.txt)')
-    parser.add_argument('-t', '--templates', default='templates.txt', help='File containing headline templates (default: templates.txt)')
-    parser.add_argument('--count', type=int, default=1, help='Number of headlines to generate (default: 1)')
     parser.add_argument('--openai_key', required=False, help='OpenAI API key (or set OPENAI_API_KEY env var)')
     parser.add_argument('--model', default='gpt-6-luna', help='OpenAI model to use (default: gpt-6-luna)')
+    parser.add_argument('--prompt', default='story_prompt.txt', help='Story prompt file (default: story_prompt.txt)')
     parser.add_argument('--no-images', action='store_true', help='Skip image generation and use placeholders')
     args = parser.parse_args()
 
-    # Allow using OPENAI_API_KEY from environment when --openai_key is not provided
-    if not getattr(args, 'openai_key', None):
+    if not args.openai_key:
         args.openai_key = os.environ.get('OPENAI_API_KEY')
     if not args.openai_key:
         parser.error('OpenAI API key is required. Provide --openai_key or set OPENAI_API_KEY environment variable.')
 
     try:
-        # Author metadata is now stored in _data/authors.json for canonical source of truth
-        generator = ClickbaitGenerator(
-            nouns_file=args.nouns,
-            adjectives_file=args.adjectives,
-            verbs_file=args.verbs,
-            celebrities_file=args.celebrities,
-            professions_file=args.professions,
-            templates_file=args.templates
-        )
-        headlines = generator.generate(args.count)
-        for i, headline in enumerate(headlines, 1):
-            print(f"{i}. {headline}")
-        
-        # Always send 5 headlines if possible
-        selected_headlines = headlines[:5] if len(headlines) >= 5 else headlines
-        
-        # Load the story prompt
-        with open('story_prompt.txt', 'r', encoding='utf-8') as f:
+        with open(args.prompt, 'r', encoding='utf-8') as f:
             story_prompt = f.read().strip()
-        
-        # Load authors from canonical data file. If it fails, raise a clear error.
-        authors_file = os.path.join('_data', 'authors.json')
-        if os.path.exists(authors_file):
-            try:
-                with open(authors_file, 'r', encoding='utf-8') as af:
-                    authors = json.load(af)
-            except Exception as e:
-                raise RuntimeError(f"Failed to load authors from {authors_file}: {e}")
-        else:
-            raise RuntimeError('No authors available: _data/authors.json not found. Please create it.')
 
-        # Pick a random author and build their public link (let Jekyll resolve baseurl/relative path)
+        # Authors: canonical source of truth is _data/authors.json
+        authors_file = os.path.join('_data', 'authors.json')
+        if not os.path.exists(authors_file):
+            raise RuntimeError('No authors available: _data/authors.json not found. Please create it.')
+        try:
+            with open(authors_file, 'r', encoding='utf-8') as af:
+                authors = json.load(af)
+        except Exception as e:
+            raise RuntimeError(f"Failed to load authors from {authors_file}: {e}")
+
         author = random.choice(authors)
-        # author entries in _data/authors.json use 'id' and 'name' keys
-        # Use a relative path (no leading slash) and rely on Jekyll's `relative_url` filter
-        # when rendering links so `site.baseurl` is applied correctly.
+        # Relative path; Jekyll's `relative_url` filter applies site.baseurl when rendering.
         author_link = f"about.html#{author['id']}"
 
-        # Load categories from _data/categories.json if present, otherwise use defaults
         categories_file = os.path.join('_data', 'categories.json')
+        categories = []
         if os.path.exists(categories_file):
             try:
                 with open(categories_file, 'r', encoding='utf-8') as cf:
                     categories = json.load(cf)
             except Exception as e:
                 print(f"Warning: failed to load categories: {e}")
-                categories = []
-        else:
-            # sensible defaults for a newspaper-like site
+        if not categories:
             categories = [
                 {"id": "news", "name": "News"},
                 {"id": "science", "name": "Science"},
                 {"id": "culture", "name": "Culture"},
                 {"id": "opinion", "name": "Opinion"}
             ]
-        # Pick a random category for this story
-        category = random.choice(categories)
-        # Occasionally mark a story as featured (20% chance)
-        is_featured = random.random() < 0.2
-        featured_line = "featured: true\n" if is_featured else ""
+        category_names = [c['name'] if isinstance(c, dict) else str(c) for c in categories]
 
-        # Call OpenAI API with author bio for tone (the script will insert canonical byline)
-        story_response = call_openai_api(
-            args.openai_key,
-            args.model,
-            story_prompt,
-            selected_headlines,
-            author_name=author.get("name"),
-            author_bio=author.get("bio"),
-            author_link=author_link,
+        # The one LLM call: headline, story, summary, categories and image brief
+        print(f"Generating story with {args.model}...")
+        story = generate_story(
+            args.openai_key, args.model, story_prompt, author,
+            category_names, recent_headlines(),
         )
-        
-        # Prepare Jekyll post
-        post_title = story_response['headline']
+
+        post_title = story['headline'].strip()
+        print(f"Headline: {post_title}")
         post_slug = slugify(post_title)
-        post_date = datetime.now().strftime('%Y-%m-%d')
-        post_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S +0000')
-        
-        # Generate image with gpt-image-1-mini (or skip if requested)
-        if getattr(args, 'no_images', False):
+        now = datetime.now()
+        post_date = now.strftime('%Y-%m-%d')
+        post_datetime = now.strftime('%Y-%m-%d %H:%M:%S +0000')
+
+        if args.no_images:
             print("Skipping image generation (--no-images); using placeholder paths")
+            print(f"Image prompt would have been: {story['image_prompt']}")
             image_url = "/assets/images/placeholder.png"
             preview_url = "/assets/images/placeholder-preview.png"
-            image_path = None
-            preview_path = None
         else:
             print("Generating image with gpt-image-1-mini...")
-            image_path, preview_path = generate_image(args.openai_key, post_title, post_slug)
+            image_path, preview_path = generate_image(args.openai_key, story['image_prompt'], post_slug)
             image_url = f"/assets/images/{post_slug}.png"
             preview_url = f"/assets/images/{post_slug}-preview.png"
             print(f"Image saved to {image_path}")
             print(f"Preview saved to {preview_path}")
-        
-        # Get summary
-        summary = story_response.get('summary', '')
 
-        # Ask OpenAI to suggest categories from our canonical set (if available)
-        suggested = []
-        try:
-            suggested = suggest_categories(args.openai_key, args.model, categories, post_title, summary, max_choices=2)
-        except Exception as e:
-            print(f"Category suggestion error (falling back to random): {e}")
-            suggested = []
-
-        # Build the categories array for front matter. Always include 'articles' as a base collection.
-        # Use suggested categories (names) and ensure uniqueness.
+        # Categories chosen by the model (schema restricts them to the allowed names)
         chosen_cat_names = []
-        for s in suggested:
-            if s and s not in chosen_cat_names:
-                chosen_cat_names.append(s)
-        # Always include the primary random category as a fallback / default if no suggestions
-        primary_name = category.get('name', 'News')
-        if not chosen_cat_names:
-            chosen_cat_names = [primary_name]
-        # Prepend the collection 'articles'
+        for name in story.get('categories', []):
+            if name in category_names and name not in chosen_cat_names:
+                chosen_cat_names.append(name)
+        chosen_cat_names = chosen_cat_names[:2] or [category_names[0]]
         categories_field = ['articles'] + chosen_cat_names
-        
-        post_dir = '_posts'
-        os.makedirs(post_dir, exist_ok=True)
-        post_filename = f"{post_dir}/{post_date}-{post_slug}.md"
-        
-        # Create Jekyll front matter
-        # Format categories as a YAML list (e.g., categories: [articles, Science])
-        cats_escaped = ", ".join([f'"{c}"' for c in categories_field])
-        cats_line = f"[{cats_escaped}]"
-        # Keep a primary `category:` field for compatibility (first non-articles entry)
-        primary_category = chosen_cat_names[0] if chosen_cat_names else primary_name
+        cats_line = "[" + ", ".join(yaml_str(c) for c in categories_field) + "]"
 
-        # Build front matter with no leading indentation to avoid YAML parsing issues
+        is_featured = random.random() < 0.2  # occasionally mark a story as featured
+
         fm_lines = [
             "---",
             "layout: post",
-            f"title: \"{post_title}\"",
+            f"title: {yaml_str(post_title)}",
             f"date: {post_datetime}",
             f"categories: {cats_line}",
-            f"category: \"{primary_category}\"",
+            f"category: {yaml_str(chosen_cat_names[0])}",
         ]
-        if featured_line:
-            # featured_line already includes trailing newline; append without extra newline handling
+        if is_featured:
             fm_lines.append("featured: true")
         fm_lines += [
             f"image: {image_url}",
             f"preview_image: {preview_url}",
-            f"summary: \"{summary}\"",
-            f"author: \"{author['name']}\"",
-            f"author_id: \"{author['id']}\"",
-            f"author_url: \"{author_link}\"",
+        ]
+        image_alt = str(story.get('image_alt', '')).strip()
+        if image_alt:
+            fm_lines.append(f"image_alt: {yaml_str(image_alt)}")
+        fm_lines += [
+            f"summary: {yaml_str(story['summary'].strip())}",
+            f"author: {yaml_str(author['name'])}",
+            f"author_id: {yaml_str(author['id'])}",
+            f"author_url: {yaml_str(author_link)}",
             "---",
             "",
             "![{{ page.image_alt | default: page.title }}]({{ page.image | relative_url }})",
             "",
         ]
         front_matter = "\n".join(fm_lines)
-        
-        # Prepare story content: ensure the model didn't already include a byline
-        story_text = story_response.get('story', '').lstrip()
-        # Remove any leading byline the model may have inserted (safe-guard)
-        import re as _re
-        lines = story_text.splitlines()
-        if lines and _re.match(r"^By \[.+\]\(.+\)\s*$", lines[0].strip()):
-            # drop the first line and any following blank line
-            lines = lines[1:]
-            if lines and lines[0].strip() == '':
-                lines = lines[1:]
-        story_text = '\n'.join(lines)
 
-        # Construct canonical byline using Jekyll relative_url so baseurl is respected
+        # Safeguard: drop any byline the model added despite instructions
+        lines = story['story'].strip().splitlines()
+        if lines and re.match(r"^By \[.+\]\(.+\)\s*$", lines[0].strip()):
+            lines = lines[1:]
+            while lines and lines[0].strip() == '':
+                lines = lines[1:]
+        story_text = '\n'.join(lines) + '\n'
+
+        # Canonical byline using Jekyll relative_url so baseurl is respected
         byline = f"By [{author.get('name')}]({{{{ '{author_link}' | relative_url }}}})\n\n"
 
-        # Write the post file (front matter, byline, then story)
+        post_dir = '_posts'
+        os.makedirs(post_dir, exist_ok=True)
+        post_filename = f"{post_dir}/{post_date}-{post_slug}.md"
         with open(post_filename, 'w', encoding='utf-8') as f:
             f.write(front_matter)
             f.write(byline)
             f.write(story_text)
 
         print(f"Story saved to {post_filename}")
-        
+
     except Exception as e:
         print(f"Error: {e}")
         return 1
-    
+
     return 0
 
 

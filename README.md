@@ -1,19 +1,18 @@
 # Clickbait Story Generator
 
-An automated clickbait headline and story generator that creates complete articles with images and publishes them to a Jekyll-based GitHub Pages site. The system uses OpenAI's GPT models to generate engaging stories from clickbait headlines, and gpt-image-1-mini to create custom images for each article.
+An automated clickbait story generator that creates complete articles with images and publishes them to a Jekyll-based GitHub Pages site. Everything is written by AI: an OpenAI GPT model invents the headline and writes the story, summary, categories and the illustration brief in a single request, and gpt-image-1-mini draws the picture from that brief.
 
 🌐 **Live Site**: [https://clickbait.dfbr.co.uk](https://clickbait.dfbr.co.uk)
 
 ## Features
 
 ### Content Generation
-- 15+ different clickbait headline templates (easily customizable)
-- OpenAI GPT (gpt-6-luna by default) integration for complete story generation
-- gpt-image-1-mini image generation for each article
+- Headlines, stories, summaries, categories, image prompts and alt text all written by the LLM (gpt-6-luna by default)
+- Only two API calls per story: one text call (structured JSON output) and one image call
+- gpt-image-1-mini image generation for each article, in a style the LLM picks for the story
 - Automatic preview thumbnails (300x300) for the index page
-- 20-30 word summary teasers for each story
-- Customizable word lists (nouns, adjectives, verbs, celebrities, professions)
-- External prompt file for easy story generation customization
+- Recent headlines are passed to the model so it doesn't repeat itself
+- External prompt file (`story_prompt.txt`) for easy customization
 
 ### Website Features
 - Automated Jekyll static site on GitHub Pages
@@ -69,14 +68,14 @@ pip install openai requests Pillow
 
 ### Local Story Generation
 
-Generate a single story with OpenAI integration:
+Generate a story:
 ```bash
 python clickbait_generator.py --openai_key YOUR_API_KEY
 ```
 
-Generate multiple stories:
+Generate the text only (no image call; the image prompt is printed instead):
 ```bash
-python clickbait_generator.py --count 5 --openai_key YOUR_API_KEY
+python clickbait_generator.py --openai_key YOUR_API_KEY --no-images
 ```
 
 ### Testing Jekyll Site Locally
@@ -105,15 +104,10 @@ The GitHub Actions workflow runs automatically every day at 3 AM GMT, generating
 
 | Option | Short | Description | Default |
 |--------|-------|-------------|---------|
-| `--nouns` | `-n` | File containing nouns | `nouns.txt` |
-| `--adjectives` | `-a` | File containing adjectives | `adjectives.txt` |
-| `--verbs` | `-v` | File containing verbs | `verbs.txt` |
-| `--celebrities` | `-c` | File containing celebrity names | `celebrities.txt` |
-| `--professions` | `-p` | File containing professions | `professions.txt` |
-| `--templates` | `-t` | File containing headline templates | `templates.txt` |
-| `--count` | | Number of stories to generate | `1` |
-| `--openai_key` | | OpenAI API key (required for story generation) | None |
+| `--openai_key` | | OpenAI API key (or set `OPENAI_API_KEY`) | None |
 | `--model` | | OpenAI model to use | `gpt-6-luna` |
+| `--prompt` | | Story prompt file | `story_prompt.txt` |
+| `--no-images` | | Skip image generation and use placeholders | off |
 
 ## File Structure
 
@@ -121,12 +115,6 @@ The GitHub Actions workflow runs automatically every day at 3 AM GMT, generating
 clickbait_generator/
 ├── clickbait_generator.py    # Main Python script
 ├── story_prompt.txt           # OpenAI prompt template
-├── templates.txt              # Headline templates
-├── nouns.txt                  # Noun word list
-├── adjectives.txt             # Adjective word list
-├── verbs.txt                  # Verb word list
-├── celebrities.txt            # Celebrity/character names
-├── professions.txt            # Profession word list
 ├── _config.yml                # Jekyll configuration
 ├── _layouts/                  # Jekyll layout templates
 │   ├── default.html          # Main layout with header/footer
@@ -149,23 +137,24 @@ clickbait_generator/
 
 ### Story Generation Process
 
-1. **Headline Creation**: The script randomly selects a template and fills it with words from the word lists
-2. **Story Generation**: The headline is sent to OpenAI (gpt-6-luna by default) with a custom prompt requesting:
-   - A complete story (3-5 paragraphs)
+1. **Story Generation (one LLM call)**: The prompt, a randomly chosen author's bio, the allowed categories and the site's recent headlines are sent to OpenAI (gpt-6-luna by default). Using structured outputs, the model returns JSON containing:
+   - An original clickbait headline it invented
+   - The full story (300-700 words, markdown)
    - A 20-30 word summary teaser
-   - All returned as JSON
-3. **Image Generation**: gpt-image-1-mini creates a vivid, dramatic illustration based on the headline
-4. **Thumbnail Creation**: A 300x300 preview image is generated using Pillow (PIL)
-5. **Jekyll Post Creation**: A markdown file is created in `_posts/` with:
+   - One or two categories from `_data/categories.json`
+   - A complete image-generation prompt (the model picks the art style) and alt text
+2. **Image Generation (one image call)**: gpt-image-1-mini draws the illustration from the model's image prompt
+3. **Thumbnail Creation**: A 300x300 preview image is generated using Pillow (PIL)
+4. **Jekyll Post Creation**: A markdown file is created in `_posts/` with:
    - Front matter (title, date, image URLs, summary, etc.)
    - Full story content
-6. **Git Commit**: Changes are automatically committed and pushed to GitHub
-7. **Site Deployment**: GitHub Pages automatically rebuilds and deploys the site
+5. **Git Commit**: Changes are automatically committed and pushed to GitHub
+6. **Site Deployment**: GitHub Pages automatically rebuilds and deploys the site
 
 ### OpenAI Integration
 
 The system uses two OpenAI APIs:
-- **gpt-6-luna** (default; override with `--model`): Generates the story content and summary
+- **gpt-6-luna** (default; override with `--model`): Generates the headline, story, summary, categories and image prompt in one call
 - **gpt-image-1-mini**: Creates images for each story
 
 The story prompt (`story_prompt.txt`) instructs the model to write uplifting, feel-good stories with vivid details and positive messages.
@@ -180,41 +169,9 @@ Preview images are displayed on the homepage in the story grid, while full-size 
 
 ## Customization
 
-### Modifying Word Lists
-
-Edit any of the `.txt` word list files. Each file should contain one word or phrase per line:
-
-```
-word1
-word2 with spaces
-word3
-```
-
-### Customizing Headline Templates
-
-Edit `templates.txt` to add or modify headline templates. Available placeholders:
-
-- `<number>` - Random number (1-100, weighted towards clickbait values)
-- `<percentage>` - Random percentage (1-99, for quiz-style headlines)
-- `<adjective>` - Random adjective from your list
-- `<noun>` - Random noun from your list
-- `<verb>` - Random verb from your list
-- `<celebrity>` - Random celebrity/character from your list
-- `<profession>` - Random profession from your list
-
-Example templates:
-```
-<number> <adjective> <noun> That Will <verb> Your Mind
-You Won't Believe What This <adjective> <noun> Can Do!
-<celebrity>'s Secret to <adjective> <noun> Revealed!
-```
-
 ### Customizing the Story Prompt
 
-Edit `story_prompt.txt` to change how stories are generated. The prompt should instruct the model to return JSON with three fields:
-- `headline` - The exact clickbait headline
-- `story` - The full story text (3-5 paragraphs)
-- `summary` - A 20-30 word teaser for the homepage
+Edit `story_prompt.txt` to change how headlines, stories and images are generated. The JSON fields the model must return (`headline`, `summary`, `categories`, `story`, `image_prompt`, `image_alt`) are enforced by the schema in `clickbait_generator.py`, so the prompt only needs to describe what goes in them.
 
 ### Customizing Site Appearance
 
@@ -240,26 +197,6 @@ You can modify the schedule by editing the cron expression:
 schedule:
   - cron: '0 3 * * *'  # Every day at 3 AM GMT
 ```
-
-## Included Headline Templates
-
-The generator includes 15 different clickbait styles:
-
-1. **Number-based listicle**: "X Adjective Nouns That Will Verb Your Mind"
-2. **You won't believe**: "You Won't Believe What This Adjective Noun Can Do!"
-3. **Shocking revelation**: "This Adjective Noun Will Verb Everything You Know About Noun"
-4. **Doctors/Scientists hate**: "Doctors Hate This Adjective Noun! Here's Why"
-5. **Celebrity numbered list**: "X Times Celebrity Was Caught Verbing a Noun"
-6. **What happened next**: "They Verbed a Adjective Noun. What Happened Next Will Verb You!"
-7. **One simple trick**: "One Adjective Trick to Verb Your Noun..."
-8. **Number reasons why**: "X Reasons Why Noun Is More Adjective Than You Think"
-9. **Quiz style**: "Only X% of People Can Verb This Adjective Noun. Can You?"
-10. **Before and after**: "She Verbed Her Noun and You Won't Believe What It Looks Like Now!"
-11. **Celebrity secret**: "Celebrity's Secret to Adjective Noun Revealed!"
-12. **Scientists discovered**: "Scientists Just Discovered a Adjective Way to Verb Noun!"
-13. **Life-changing**: "This Adjective Noun Changed My Life in X Days"
-14. **Shocking truth**: "The Adjective Truth About Noun That Nobody Tells You"
-15. **Things you didn't know**: "X Things You Didn't Know About Adjective Noun"
 
 ## Technical Details
 
@@ -312,11 +249,6 @@ Your site will be available at: `https://clickbait.dfbr.co.uk`
 
 ## Example Output
 
-### Generated Headline
-```
-7 Shocking Secrets About Quantum Coffee That Will Transform Your Mind
-```
-
 ### Generated Story Structure
 ```markdown
 ---
@@ -362,8 +294,6 @@ summary: "Discover how scientists unlocked the mind-bending properties of quantu
 
 Feel free to submit issues and pull requests! Ideas for enhancement:
 
-- Additional headline templates
-- More word lists (locations, emotions, etc.)
 - Different story styles (horror, sci-fi, etc.)
 - Multi-language support
 - Story archives by month/category

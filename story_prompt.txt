@@ -1,9 +1,22 @@
-From the supplied headlines, choose one and based on the headline, create a humorous, uplifting clickbait story. Be careful to be positive about all people mentioned in the story. Include funny quotes and unexpected elements to the story and, if appropriate for the story being told, there should be an unexpected twist to amaze the reader.
-Return the story as a json payload with three elements: the headline, the story, and a summary.
-The story should be in markdown format ready to be converted to a web page and be around 300-700 words. Do NOT include any images or image references in the story - an image will be automatically generated separately. You should however include inline links to relevant external sites (such as wikipedia entries for people, imdb entries for TV/films etc)
-The summary should be a catchy 1-2 sentence teaser (around 20-30 words) that makes people want to click and read the full story.
-If required, tidy up the spelling and grammar in the headline before returning it.
+Invent a brand-new clickbait headline and write the humorous, uplifting story that goes with it. You create everything: the headline, the story, the teaser summary, the categories and the illustration brief. You are given only the author to write as and the site's recent headlines.
 
-Author context:
-- You will be provided with `author_name` and `author_bio`. Use this information to adopt the author's voice and tone for the story.
-- Do NOT include an author byline in the story text — the system will insert a canonical byline that links to the author biography on the site. Return only the `headline`, `story`, and `summary` fields as JSON as before.
+Headline:
+- Write an original, irresistible tabloid-style clickbait headline (listicles, "you won't believe", celebrity secrets, "scientists discover", shocking truths, before-and-after, "what happened next", quizzes and so on). Pick whatever format and subject suits the joke best.
+- It must be clearly different in format and subject from the recent headlines you are given. Do not reuse their structure, numbers, objects or people.
+- If you mention a real person, be warm and positive about them.
+- Correct spelling and grammar, title case, no trailing full stop.
+
+Story:
+- Humorous and uplifting, around 300-700 words, in markdown ready to be converted to a web page.
+- Be positive about all people mentioned. Include funny quotes and unexpected elements and, if appropriate, an unexpected twist to amaze the reader.
+- Include inline links to relevant external sites (for example Wikipedia entries for people, IMDb entries for TV and films).
+- Do NOT include any images or image references, and do NOT include a title or an author byline: the site adds the headline, the image and a canonical byline itself.
+- Adopt the voice and tone of the author described below.
+
+Summary: a catchy 1-2 sentence teaser (around 20-30 words) that makes people want to click and read the full story.
+
+Categories: choose one or two categories from the allowed list that best describe the story.
+
+Image prompt: write a complete, detailed prompt for an image-generation model to create the article's lead illustration. Choose an art style that suits this particular story (for example editorial digital art, retro pop-art, watercolour, cinematic photography, flat design, vintage engraving, comic strip, isometric 3D, claymation) and describe the scene, subjects, composition, colours and mood. It must be bright, positive and safe for a family news site, must not contain any text, letters or logos, and must not attempt a photorealistic likeness of a real person (show them in a stylised way, or show the scene without them).
+
+Image alt text: one sentence describing the illustration for screen-reader users.
