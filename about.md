@@ -65,6 +65,17 @@ Welcome to the wild and wonderful world of Clickbait Generator, where the storie
   <p><a href="{{ '/authors/samina-fishington/' | relative_url }}">See all stories by Samina Fishington</a></p>
 </div>
 
+<div style="overflow: auto; margin-bottom: 2rem;">
+  <h3 id="barnaby-crumbleworth">Barnaby Crumbleworth</h3>
+  <p><strong>Food &amp; Lifestyle Correspondent &amp; Retired Competitive Toast Sculptor</strong></p>
+  <img src="{{ '/assets/images/team/barnaby-crumbleworth.png' | relative_url }}" alt="Barnaby Crumbleworth" style="float: right; max-width: 250px; margin: 0 0 15px 15px; border-radius: 10px;">
+  <p>Barnaby Crumbleworth is the only journalist in history to have been banned from a bakery for being <em>too</em> enthusiastic. A three-time winner of the coveted <strong>Golden Crust</strong> at the World Toast Sculpting Championships, Barnaby is best known for his life-size replica of the Eiffel Tower made entirely from lightly buttered sourdough, which stood proudly for six hours before being eaten by a very determined flock of pigeons. He calls it "the most delicious structural failure of my career."</p>
+  <p>Raised above his grandmother's bakery in a village famous for its annual Great Crumpet Roll, Barnaby learned to knead before he could walk and could identify forty-two varieties of flour by smell alone by the age of nine. He studied Applied Snack Sciences at the Culinary College of Questionable Combinations, graduating with first-class honours for his dissertation, <em>"Marmalade: Breakfast Condiment or Emotional Support System?"</em></p>
+  <p>After retiring from competitive toast sculpture following a dramatic incident involving a faulty toaster and a commemorative bust of a minor royal, Barnaby turned his attention to journalism. He now covers food, home and lifestyle stories for Clickbait Generator, with a particular passion for kitchen gadgets with ambitions above their station, heartwarming tales of rescued sourdough starters, and any recipe that can be improved by adding more cheese (all of them, according to Barnaby). He insists on personally taste-testing every dish he reports on, a policy his editor describes as "expensive but admittedly thorough."</p>
+  <p>Barnaby lives in a narrowboat called <em>The Soggy Bottom</em> with Gerald, a sourdough starter he has kept alive for twenty-three years and who he insists has "a very strong personality." He runs a weekly support group for neglected sourdough starters, hosts the podcast <em>"Butter Late Than Never"</em>, and holds the unofficial record for the most consecutive days eating a different type of sandwich (1,847 and counting). His motto: "Every great story starts with a snack."</p>
+  <p><a href="{{ '/authors/barnaby-crumbleworth/' | relative_url }}">See all stories by Barnaby Crumbleworth</a></p>
+</div>
+
 ---
 
 Together, this team of delightfully unconventional reporters is committed to making your day a little brighter, one clickbait story at a time!

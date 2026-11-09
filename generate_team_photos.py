@@ -38,6 +38,11 @@ def main():
             'name': 'Dr. Priya Whiskerworth',
             'prompt': 'Professional headshot photo of a South Asian woman in her 40s wearing cat-themed jewelry, professional cat translator, intelligent and warm expression, glasses, studio portrait, high quality',
             'filename': 'priya-whiskerworth.png'
+        },
+        {
+            'name': 'Barnaby Crumbleworth',
+            'prompt': 'Professional headshot photo of a jolly, round-faced man in his 50s with rosy cheeks, a neatly trimmed ginger beard and a flour-dusted navy apron over a checked shirt, retired competitive toast sculptor and food writer, holding a slice of artfully carved toast, warm cosy bakery background softly blurred, big friendly grin, studio portrait, high quality',
+            'filename': 'barnaby-crumbleworth.png'
         }
     ]
 
